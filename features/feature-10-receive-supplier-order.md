@@ -1,10 +1,11 @@
+
 # Feature: Receive Supplier Order
 
 **Feature ID:** 10  
 **Branch pattern:** `feature/10-receive-supplier-order`  
-**Status:** Draft  
+**Status:** Draft - Proposed Rules Pending Approval  
 **Created:** 2026-09-28  
-**Input:** The system assists a warehouse worker in receiving a Supplier Order by identifying the order from the PO number, recording the receiving door, scanning received items and quantities, and comparing what was ordered with what was actually received.
+**Input:** The Warehouse Management System assists receiving workers in receiving shipments from Suppliers. The worker identifies the Supplier Order using the PO Number on the bill of lading, records the receiving door, scans delivered cases or individual items, records actual received quantities, compares those quantities with the original order, investigates discrepancies, and completes receiving. Received products remain at the receiving location until they are processed through the separate Put Away workflow in Feature 11.
 
 ---
 
@@ -12,74 +13,161 @@
 
 ### US-10.1: Identify Supplier Order
 
-**As a** receiving worker  
-**I want to** enter the PO number from the bill of lading  
-**So that** the system can identify the Supplier Order being received
+**As a** Receiving Clerk  
+**I want to** enter the PO Number from the bill of lading  
+**So that** I can identify the correct Supplier Order and review what was ordered.
 
 **Priority:** P1  
-**Independent test:** Enter a PO number from the bill of lading and confirm that the correct Supplier Order is identified.
+**Independent test:** Enter the PO Number of an existing submitted Supplier Order and verify that the correct Supplier, items, and ordered quantities are displayed.
 
 ### US-10.2: Record Receiving Location
 
-**As a** receiving worker  
-**I want to** identify the receiving door where the shipment was unloaded  
-**So that** Put Away workers can locate the received order
+**As a** Receiving Clerk  
+**I want to** record the warehouse and receiving door where the shipment arrived  
+**So that** Put Away workers can locate the received products.
 
 **Priority:** P1  
-**Independent test:** Record a receiving door for a Supplier Order and confirm that the location is associated with the received order.
+**Independent test:** Select a valid receiving door and verify that it is stored with the Receiving Record.
 
 ### US-10.3: Scan Received Items
 
-**As a** receiving worker  
-**I want to** scan the items received from the Supplier  
-**So that** the system can accurately record what was received
+**As a** Receiving Clerk  
+**I want to** scan the delivered products and record their quantities  
+**So that** the system accurately records what the Supplier actually delivered.
 
 **Priority:** P1  
-**Independent test:** Scan received items and confirm that the system records the items and Quantity Received.
+**Independent test:** Scan a known Item UPC and a known Case UPC and verify that the appropriate quantities are recorded in individual units.
 
 ### US-10.4: Reconcile Ordered and Received Quantities
 
-**As a** receiving worker  
-**I want to** see differences between Quantity Ordered and Quantity Received  
-**So that** I can investigate and confirm discrepancies before completing receiving
+**As a** Receiving Clerk  
+**I want to** compare the quantities ordered with the quantities received  
+**So that** missing, extra, or incorrect products can be identified and investigated.
 
 **Priority:** P1  
-**Independent test:** Receive a quantity different from the Quantity Ordered and confirm that the system identifies the difference.
+**Independent test:** Receive fewer or more units than ordered and verify that the system displays the discrepancy and allows it to be reviewed.
+
+### US-10.5: Complete Receiving and Prepare for Put Away
+
+**As a** Receiving Clerk  
+**I want to** complete receiving after verifying the shipment  
+**So that** the received products become available for Put Away without being incorrectly recorded as already stored in warehouse bins.
+
+**Priority:** P1  
+**Independent test:** Complete a receiving session with valid scanned quantities and a receiving door, then verify that the received products are available for Feature 11.
 
 ---
 
 ## Functional Requirements
 
-- **FR-001:** The system MUST allow a receiving worker to enter the PO number from the bill of lading.
-- **FR-002:** The system MUST use the PO number to identify the Supplier Order being received.
-- **FR-003:** The system MUST allow the receiving worker to identify the receiving door where the shipment was unloaded.
-- **FR-004:** The system MUST associate the receiving door with the received Supplier Order so the order can later be located for Put Away.
-- **FR-005:** The system MUST allow the receiving worker to scan received items.
-- **FR-006:** The system MUST record the Quantity Received for each item.
-- **FR-007:** The system MUST keep Quantity Received separate from Quantity Ordered.
-- **FR-008:** The system MUST compare Quantity Received with Quantity Ordered.
-- **FR-009:** The system MUST identify differences between Quantity Ordered and Quantity Received.
-- **FR-010:** The system MUST allow the receiving worker to continue scanning if a missing item or case is found while investigating a discrepancy.
-- **FR-011:** The system MUST allow the receiving worker to confirm a discrepancy when the actual Quantity Received is different from Quantity Ordered.
-- **FR-012:** The system MUST record that receiving has been completed after the worker finishes scanning and reviewing discrepancies.
-- **FR-013:** Received items MUST remain available for the separate Put Away process after receiving is completed.
-- **FR-014:** The exact Supplier Order status values used during and after receiving are **TBD**.
-- **FR-015:** Behavior when a PO number does not identify an existing Supplier Order is **TBD**.
-- **FR-016:** Behavior when an item is scanned that is not on the Supplier Order is **TBD**.
-- **FR-017:** Behavior when a barcode cannot be read or does not identify an item is **TBD**.
-- **FR-018:** Whether receiving can be completed without a Receiving Door is **TBD**.
-- **FR-019:** Handling of partially received Supplier Orders is **TBD**.
-- **FR-020:** The exact handling of case UPCs, individual UPCs, and quantities contained in a case is **TBD**.
+- **FR-001:** The system MUST allow authorized Receiving Clerks and receiving workers to enter or scan a PO Number from the bill of lading.
+- **FR-002:** The system MUST locate the corresponding Supplier Order using its unique PO Number.
+- **FR-003:** The system MUST display the Supplier, ordered items, and original ordered quantities for the identified Supplier Order.
+- **FR-004:** The system MUST reject a PO Number that does not identify an existing Supplier Order.
+- **FR-005:** The system MUST prevent receiving against Draft or Canceled Supplier Orders.
+- **FR-006:** The system MUST allow receiving against Submitted or Partially Received Supplier Orders.
+- **FR-007:** The system MUST preserve the original Quantity Ordered when receiving is performed.
+- **FR-008:** The system MUST allow the worker to identify the Warehouse where the shipment arrived.
+- **FR-009:** The system MUST allow the worker to select an existing Receiving Door within that Warehouse.
+- **FR-010:** The system MUST associate the selected Receiving Door with the Receiving Record.
+- **FR-011:** The system MUST require a valid Receiving Door before a receiving session can be completed.
+- **FR-012:** The system MUST allow a receiving worker to scan Individual Item UPCs.
+- **FR-013:** The system MUST allow a receiving worker to scan Case UPCs when case-level barcodes are configured for an Item.
+- **FR-014:** The system MUST identify the Individual Item associated with a scanned UPC.
+- **FR-015:** The system MUST determine whether the scanned barcode represents an individual unit or a case.
+- **FR-016:** When a Case UPC is scanned, the system MUST convert the case quantity into individual units using the configured units-per-case value for that barcode.
+- **FR-017:** When an Individual Item UPC is scanned, the system MUST record the corresponding quantity in individual units.
+- **FR-018:** The system MUST support recording multiple scans of the same Item during one receiving session.
+- **FR-019:** The system MUST maintain a running Quantity Received for each Supplier Order Line.
+- **FR-020:** The system MUST record received quantities separately from the original ordered quantities.
+- **FR-021:** The system MUST prevent negative received quantities.
+- **FR-022:** The system MUST reject an unreadable or unknown barcode without recording an unidentified Item as received.
+- **FR-023:** The system MUST identify when a scanned Item does not appear on the selected Supplier Order.
+- **FR-024:** The system MUST prevent an unexpected Item from being silently added to the Supplier Order.
+- **FR-025:** The system MUST display the original Quantity Ordered, previously received quantity, current session quantity, and cumulative Quantity Received for each order line.
+- **FR-026:** The system MUST compare cumulative Quantity Received with Quantity Ordered.
+- **FR-027:** The system MUST identify shortages when cumulative Quantity Received is less than Quantity Ordered.
+- **FR-028:** The system MUST identify overages when cumulative Quantity Received is greater than Quantity Ordered.
+- **FR-029:** The system MUST identify ordered items for which no units have been received.
+- **FR-030:** The system MUST allow the receiving worker to continue scanning additional items or cases while investigating discrepancies.
+- **FR-031:** The system MUST recalculate receiving differences when additional quantities are recorded.
+- **FR-032:** The system MUST require unresolved quantity discrepancies to be reviewed and confirmed before completing a receiving session.
+- **FR-033:** The system MUST preserve the actual received quantity even when it differs from Quantity Ordered.
+- **FR-034:** The system MUST record confirmed discrepancies for supplier performance reporting in Feature 17.
+- **FR-035:** The system MUST maintain a Receiving Record for each receiving session.
+- **FR-036:** Each Receiving Record MUST identify the Supplier Order, Warehouse, Receiving Door, receiving worker, and receiving date and time.
+- **FR-037:** The system MUST maintain individual Receiving Record Lines identifying the Items and quantities received during the session.
+- **FR-038:** The system MUST support multiple receiving sessions for a Supplier Order that has not been fully received.
+- **FR-039:** The system MUST update the cumulative Quantity Received for each Supplier Order Line after a receiving session is completed.
+- **FR-040:** The system MUST set a Supplier Order to Partially Received when receiving has occurred but at least one ordered quantity remains outstanding and further receiving is expected.
+- **FR-041:** The system MUST set a Supplier Order to Received when the receiving process is closed and no further shipments are expected for that order.
+- **FR-042:** The system MUST preserve confirmed shortages or overages when an order is closed as Received.
+- **FR-043:** The system MUST prevent completed receiving sessions from being silently overwritten.
+- **FR-044:** The system MUST make completed receiving quantities available to the Put Away process.
+- **FR-045:** The system MUST associate received products awaiting Put Away with the Receiving Door where they were unloaded.
+- **FR-046:** Completing receiving MUST NOT automatically assign received products to final storage bins.
+- **FR-047:** Completing receiving MUST NOT mark products as already put away.
+- **FR-048:** The system MUST maintain the distinction between Quantity Ordered, Quantity Received, and quantity physically put away.
+- **FR-049:** The system MUST restrict receiving operations to authorized receiving personnel.
+- **FR-050:** The system MUST allow authorized Managers or Supervisors to review receiving discrepancies.
+- **FR-051:** The system MUST preserve receiving history for later inventory reconciliation and reporting.
+- **FR-052:** The system MUST reject attempts to complete a nonexistent or already completed Receiving Record.
+- **FR-053:** The system MUST prevent the same Receiving Record from being completed more than once.
+- **FR-054:** The system MUST keep Supplier Order creation separate from Supplier Order receiving.
 
 ---
 
 ## Key Entities
 
-- **Supplier Order:** An order previously placed with a Supplier and identified during receiving.
-- **Supplier Order Item:** An Individual Item on the Supplier Order with Quantity Ordered and Quantity Received.
-- **Receiving Record:** Information recorded while a Supplier Order is being received.
-- **Individual Item:** A product received from a Supplier.
-- **Receiving Door:** The warehouse location where the incoming shipment was unloaded and waits for Put Away.
+### Supplier Order
+
+Represents an existing purchase order placed with a Supplier.
+
+The Supplier Order provides the original PO Number, Supplier, ordered Items, and ordered quantities.
+
+### Supplier Order Line
+
+Represents an Individual Item ordered from a Supplier.
+
+Each line maintains Quantity Ordered and cumulative Quantity Received separately.
+
+### Receiving Record
+
+Represents a receiving session for an incoming shipment.
+
+A Receiving Record identifies the Supplier Order, Warehouse, Receiving Door, receiving worker, and session status.
+
+### Receiving Record Line
+
+Represents an Item and quantity received during a particular receiving session.
+
+### Individual Item
+
+Represents a product received from a Supplier.
+
+Each Item may have UPCs for individual units and cases.
+
+### UPC
+
+Represents a barcode used to identify an Individual Item or a case containing multiple units.
+
+### Warehouse
+
+Represents the warehouse receiving the shipment.
+
+Warehouse maintenance is defined in Feature 2.
+
+### Receiving Door
+
+Represents a designated warehouse location where an incoming shipment is unloaded and awaits Put Away.
+
+### Receiving Discrepancy
+
+Represents a confirmed difference between ordered and received quantities.
+
+### User
+
+Represents an employee authorized to receive Supplier Orders or review discrepancies.
 
 ---
 
@@ -87,68 +175,176 @@
 
 ### Supplier Order
 
-Represents an order previously placed with a Supplier.
-
-**Relevant Attributes:**
-- PO Number
-- Status [exact values TBD]
-
-**Relationships:**
-- A Supplier Order is associated with a Supplier.
-- A Supplier Order contains one or more Supplier Order Items.
-- A Supplier Order may have receiving information after the shipment arrives.
-
-### Supplier Order Item
-
-Represents an Individual Item included in a Supplier Order.
-
-**Attributes:**
-- Individual Item
-- Quantity Ordered
-- Quantity Received
+| Attribute | Type | Description |
+|---|---|---|
+| supplierOrderId | Integer | Unique Supplier Order identifier |
+| poNumber | String | Unique purchase order number |
+| supplierId | Integer | Foreign key referencing Supplier |
+| status | String | Draft, Submitted, Partially Received, Received, or Canceled |
 
 **Relationships:**
-- A Supplier Order contains one or more Supplier Order Items.
-- Each Supplier Order Item refers to an Individual Item.
-- Quantity Received is compared with Quantity Ordered during receiving.
+- Each Supplier Order belongs to one Supplier.
+- Each Supplier Order contains one or more Supplier Order Lines.
+- One Supplier Order may have multiple Receiving Records.
+
+**Constraints:**
+- PO Number must be unique.
+- Only Submitted and Partially Received orders may begin a new receiving session.
+- Original ordered quantities must remain preserved.
+
+### Supplier Order Line
+
+| Attribute | Type | Description |
+|---|---|---|
+| supplierOrderLineId | Integer | Unique Supplier Order Line identifier |
+| supplierOrderId | Integer | Foreign key referencing Supplier Order |
+| itemId | Integer | Foreign key referencing Individual Item |
+| quantityOrderedCases | Integer | Original quantity ordered in cases |
+| unitsPerCase | Integer | Units per case recorded on the order |
+| quantityReceivedUnits | Integer | Cumulative quantity received in individual units |
+
+**Derived Values:**
+- Ordered Units = quantityOrderedCases × unitsPerCase.
+- Quantity Difference = quantityReceivedUnits - Ordered Units.
+- Outstanding Units = maximum of zero and (Ordered Units - quantityReceivedUnits).
+
+**Relationships:**
+- Each Supplier Order Line belongs to one Supplier Order.
+- Each line references one Individual Item.
+- Receiving Record Lines contribute to cumulative Quantity Received.
 
 ### Receiving Record
 
-Represents information recorded when a Supplier Order is received.
-
-**Attributes:**
-- Receiving Door
-- [TBD: other receiving information]
+| Attribute | Type | Description |
+|---|---|---|
+| receivingRecordId | Integer | Unique Receiving Record identifier |
+| supplierOrderId | Integer | Foreign key referencing Supplier Order |
+| warehouseId | Integer | Foreign key referencing Warehouse |
+| receivingDoorId | Integer | Foreign key referencing Receiving Door |
+| receivedBy | Integer | User who performed receiving |
+| startedAt | DateTime | Date and time receiving started |
+| completedAt | DateTime | Date and time receiving completed |
+| status | String | In Progress or Completed |
+| discrepanciesConfirmed | Boolean | Indicates whether identified discrepancies were reviewed |
 
 **Relationships:**
-- A Receiving Record is associated with a Supplier Order.
-- The Receiving Record identifies where the received order is waiting for Put Away.
-- Received items and quantities are recorded as part of the receiving process.
+- Each Receiving Record belongs to one Supplier Order.
+- Each Receiving Record is associated with one Warehouse.
+- Each Receiving Record identifies one Receiving Door.
+- Each Receiving Record contains Receiving Record Lines.
+- A completed Receiving Record can provide products for Put Away.
+
+**Constraints:**
+- receivingDoorId must reference a Receiving Door in the selected Warehouse.
+- A Receiving Record cannot be completed without a valid Receiving Door.
+- A completed Receiving Record cannot be completed again.
+
+### Receiving Record Line
+
+| Attribute | Type | Description |
+|---|---|---|
+| receivingRecordLineId | Integer | Unique Receiving Record Line identifier |
+| receivingRecordId | Integer | Foreign key referencing Receiving Record |
+| supplierOrderLineId | Integer | Foreign key referencing Supplier Order Line |
+| itemId | Integer | Foreign key referencing Individual Item |
+| quantityReceivedUnits | Integer | Quantity received during this session in individual units |
+
+**Relationships:**
+- Each Receiving Record Line belongs to one Receiving Record.
+- Each Receiving Record Line references an ordered Item.
+- Completed Receiving Record Lines contribute to cumulative received quantities.
+
+**Constraints:**
+- quantityReceivedUnits cannot be negative.
+- The Item must be associated with the selected Supplier Order Line.
 
 ### Individual Item
 
-Represents a product received from a Supplier.
-
-**Relevant Attributes:**
-- SKU / Item Number
-- UPC
-- [TBD: Case UPC]
-- [TBD: Quantity contained in a case]
+| Attribute | Type | Description |
+|---|---|---|
+| itemId | Integer | Unique Individual Item identifier |
+| itemNumber | String | Unique Item Number or SKU |
+| description | String | Item description |
+| unitsPerCase | Integer | Number of individual units per case |
 
 **Relationships:**
-- An Individual Item may appear on multiple Supplier Orders.
-- An Individual Item may have a Quantity Ordered and Quantity Received for a Supplier Order.
+- One Individual Item can appear on multiple Supplier Order Lines.
+- One Individual Item can have multiple UPCs.
+- Item maintenance is defined in Feature 4.
+
+### UPC
+
+| Attribute | Type | Description |
+|---|---|---|
+| upcId | Integer | Unique UPC identifier |
+| itemId | Integer | Foreign key referencing Individual Item |
+| upcCode | String | Barcode value |
+| barcodeType | String | Individual Unit or Case |
+| unitsRepresented | Integer | Number of individual units represented by one scan |
+
+**Relationships:**
+- Each UPC identifies one Individual Item.
+- An Item may have an individual-unit UPC and a case UPC.
+
+**Constraints:**
+- An individual-unit UPC represents one unit.
+- A case UPC represents the configured number of units in the case.
+- Each UPC code must uniquely identify its configured Item and package type.
+
+### Warehouse
+
+| Attribute | Type | Description |
+|---|---|---|
+| warehouseId | Integer | Unique Warehouse identifier |
+| name | String | Warehouse name |
+
+**Relationships:**
+- A Warehouse contains one or more Receiving Doors.
+- Warehouse maintenance is defined in Feature 2.
 
 ### Receiving Door
 
-Represents the warehouse receiving location where an incoming shipment is unloaded and waits for Put Away.
-
-**Attributes:**
-- [TBD: Receiving Door identifier]
+| Attribute | Type | Description |
+|---|---|---|
+| receivingDoorId | Integer | Unique Receiving Door identifier |
+| warehouseId | Integer | Foreign key referencing Warehouse |
+| doorCode | String | Receiving Door identifier, such as "DOOR-3" |
+| isActive | Boolean | Indicates whether the Receiving Door can be used |
 
 **Relationships:**
-- A received Supplier Order is associated with a Receiving Door.
-- Put Away workers use the Receiving Door to locate received items.
+- Each Receiving Door belongs to one Warehouse.
+- One Receiving Door may be referenced by multiple Receiving Records.
+
+**Constraints:**
+- doorCode must be unique within its Warehouse.
+- A Receiving Door must be active to be selected for a new receiving session.
+
+### Receiving Discrepancy
+
+| Attribute | Type | Description |
+|---|---|---|
+| discrepancyId | Integer | Unique Discrepancy identifier |
+| receivingRecordId | Integer | Foreign key referencing Receiving Record |
+| supplierOrderLineId | Integer | Foreign key referencing Supplier Order Line |
+| quantityDifferenceUnits | Integer | Difference between received and expected quantities |
+| confirmedBy | Integer | User who confirmed the discrepancy |
+| confirmedAt | DateTime | Date and time of confirmation |
+
+**Relationships:**
+- Each Receiving Discrepancy belongs to a Receiving Record.
+- Each Discrepancy references a Supplier Order Line.
+- Discrepancy information supports Feature 17.
+
+### User
+
+| Attribute | Type | Description |
+|---|---|---|
+| userId | Integer | Unique User identifier |
+| role | String | Assigned authorization role |
+
+**Relationships:**
+- Receiving personnel create and complete Receiving Records.
+- Managers or Supervisors can review receiving discrepancies.
 
 ---
 
@@ -156,91 +352,239 @@ Represents the warehouse receiving location where an incoming shipment is unload
 
 ### US-10.1: Identify Supplier Order
 
-#### AC-10.1.1: Valid PO Number identifies Supplier Order
+#### AC-10.1.1: Identify valid Supplier Order
 
-**Given** a Supplier Order already exists in the system  
-**When** the receiving worker enters the PO number from the bill of lading  
-**Then** the system identifies the corresponding Supplier Order
+**Given** a Supplier Order exists with PO Number "PO1001"  
+**And** its status is Submitted  
+**And** the user is authenticated as a Receiving Clerk  
+**When** the user enters "PO1001" from the bill of lading  
+**Then** the system identifies the Supplier Order  
+**And** displays the Supplier, Items, and original Quantity Ordered.
 
-#### AC-10.1.2: PO Number does not identify an order
+#### AC-10.1.2: Reject nonexistent PO Number
 
-**Given** the receiving worker enters a PO number that does not identify an existing Supplier Order  
-**When** the system attempts to find the order  
-**Then** [TBD: behavior not specified in the interview or class notes]
+**Given** no Supplier Order exists with PO Number "PO9999"  
+**When** the receiving worker enters "PO9999"  
+**Then** the system reports that no matching Supplier Order exists  
+**And** does not create a Receiving Record for that PO Number.
+
+#### AC-10.1.3: Reject canceled Supplier Order
+
+**Given** a Supplier Order exists with status Canceled  
+**When** the receiving worker attempts to begin receiving against it  
+**Then** the system rejects the request  
+**And** no Receiving Record is started.
+
+#### AC-10.1.4: Allow partially received Supplier Order
+
+**Given** a Supplier Order exists with status Partially Received  
+**And** additional quantities remain outstanding  
+**When** an authorized receiving worker enters its PO Number  
+**Then** the system displays the original ordered quantities  
+**And** displays the quantities already received  
+**And** allows a new receiving session to begin.
 
 ### US-10.2: Record Receiving Location
 
-#### AC-10.2.1: Receiving Door is recorded
+#### AC-10.2.1: Record valid Receiving Door
 
-**Given** a shipment has arrived at a Receiving Door  
-**When** the receiving worker identifies the Receiving Door  
-**Then** the system associates that Receiving Door with the Supplier Order
+**Given** a Supplier Order has been identified  
+**And** Warehouse A contains an active Receiving Door "DOOR-3"  
+**When** the receiving worker selects Warehouse A and "DOOR-3"  
+**Then** the system associates that Receiving Door with the Receiving Record.
 
-#### AC-10.2.2: Receiving location is available for Put Away
+#### AC-10.2.2: Reject nonexistent Receiving Door
 
-**Given** receiving has been completed for a Supplier Order  
-**When** the order becomes available for Put Away  
-**Then** the Receiving Door is available so the Put Away worker can locate the order
+**Given** the receiving worker has identified a Supplier Order  
+**When** the worker selects a Receiving Door that does not exist  
+**Then** the system rejects the selection  
+**And** does not save an invalid Receiving Door.
+
+#### AC-10.2.3: Reject Receiving Door from another Warehouse
+
+**Given** a Receiving Record is associated with Warehouse A  
+**And** Receiving Door "DOOR-2" belongs to Warehouse B  
+**When** the worker attempts to select "DOOR-2" for the record  
+**Then** the system rejects the selection  
+**And** requires a Receiving Door belonging to Warehouse A.
+
+#### AC-10.2.4: Require Receiving Door before completion
+
+**Given** a Receiving Record contains scanned items  
+**And** no Receiving Door has been selected  
+**When** the receiving worker attempts to complete receiving  
+**Then** the system rejects completion  
+**And** requires a valid Receiving Door.
+
+#### AC-10.2.5: Make Receiving Door available for Put Away
+
+**Given** a Receiving Record has been completed at "DOOR-3"  
+**When** a Put Away worker retrieves the completed Receiving Record  
+**Then** the system displays "DOOR-3" as the location of the received products.
 
 ### US-10.3: Scan Received Items
 
-#### AC-10.3.1: Received item is scanned
+#### AC-10.3.1: Scan individual Item UPC
 
-**Given** the correct Supplier Order has been identified  
-**When** the receiving worker scans an item  
-**Then** the system identifies the item  
-**And** records its Quantity Received
+**Given** a Supplier Order contains Item A  
+**And** Item A has an individual-unit UPC  
+**When** the receiving worker scans that UPC once  
+**Then** the system identifies Item A  
+**And** records one individual unit received.
 
-#### AC-10.3.2: Multiple items are received
+#### AC-10.3.2: Scan Case UPC
 
-**Given** a Supplier Order contains multiple items  
-**When** the receiving worker scans the received items  
-**Then** the system records the Quantity Received for each item
+**Given** a Supplier Order contains Item A  
+**And** Item A has a Case UPC representing 12 units  
+**When** the receiving worker scans the Case UPC once  
+**Then** the system identifies Item A  
+**And** records 12 individual units received.
 
-#### AC-10.3.3: Unknown or unreadable item
+#### AC-10.3.3: Scan multiple cases
 
-**Given** an item's barcode cannot be read or does not identify an expected item  
-**When** the receiving worker attempts to scan it  
-**Then** [TBD: behavior not specified in the interview or class notes]
+**Given** a Supplier Order contains Item A  
+**And** each case of Item A contains 12 units  
+**When** the receiving worker scans the Case UPC three times  
+**Then** the system records 36 individual units received during the session.
+
+#### AC-10.3.4: Reject unknown barcode
+
+**Given** the receiving worker has started a valid receiving session  
+**When** the worker scans a barcode that does not match any configured UPC  
+**Then** the system reports that the barcode is unknown  
+**And** does not add an unidentified Item to the received quantities.
+
+#### AC-10.3.5: Identify unexpected Item
+
+**Given** a Supplier Order contains Item A but not Item B  
+**When** the receiving worker scans Item B  
+**Then** the system identifies Item B as unexpected  
+**And** does not silently add Item B to the Supplier Order  
+**And** flags the issue for review.
+
+#### AC-10.3.6: Preserve Quantity Ordered
+
+**Given** a Supplier Order Line contains 5 cases ordered  
+**When** the receiving worker records received quantities  
+**Then** the original Quantity Ordered remains 5 cases  
+**And** the system records Quantity Received separately.
+
+#### AC-10.3.7: Reject unauthorized receiving
+
+**Given** the user is authenticated as a Driver without receiving permission  
+**When** the user attempts to start a receiving session  
+**Then** the system denies the request  
+**And** no Receiving Record is created.
 
 ### US-10.4: Reconcile Ordered and Received Quantities
 
-#### AC-10.4.1: Received quantity matches Ordered quantity
+#### AC-10.4.1: Received quantity matches ordered quantity
 
-**Given** Quantity Received equals Quantity Ordered  
-**When** the receiving worker reviews the received order  
-**Then** the system shows no quantity discrepancy for that item
+**Given** a Supplier Order Line contains 60 units ordered  
+**And** the cumulative Quantity Received is 60 units  
+**When** the receiving worker reviews the line  
+**Then** the system displays a quantity difference of zero  
+**And** does not identify a quantity discrepancy.
 
-#### AC-10.4.2: Received quantity is less than Ordered quantity
+#### AC-10.4.2: Identify shortage
 
-**Given** Quantity Received is less than Quantity Ordered  
-**When** the receiving worker reviews the received order  
-**Then** the system identifies the quantity difference for investigation
+**Given** a Supplier Order Line contains 60 units ordered  
+**And** the cumulative Quantity Received is 48 units  
+**When** the receiving worker reviews the line  
+**Then** the system identifies a shortage of 12 units.
 
-#### AC-10.4.3: Received quantity is greater than Ordered quantity
+#### AC-10.4.3: Identify overage
 
-**Given** Quantity Received is greater than Quantity Ordered  
-**When** the receiving worker reviews the received order  
-**Then** the system identifies the quantity difference for investigation
+**Given** a Supplier Order Line contains 60 units ordered  
+**And** the cumulative Quantity Received is 72 units  
+**When** the receiving worker reviews the line  
+**Then** the system identifies an overage of 12 units.
 
-#### AC-10.4.4: Missing item is found during investigation
+#### AC-10.4.4: Update quantity after finding missing case
 
-**Given** the system identifies a receiving discrepancy  
-**And** the receiving worker finds an item or case that was not previously scanned  
-**When** the worker scans the additional item or case  
-**Then** the system updates Quantity Received  
-**And** recalculates the difference
+**Given** a Supplier Order Line contains 60 units ordered  
+**And** the worker has scanned 48 units  
+**And** a missing case containing 12 units is found  
+**When** the worker scans the additional case  
+**Then** the session's received quantity increases to 60 units  
+**And** the system recalculates the difference to zero.
 
-#### AC-10.4.5: Actual discrepancy is confirmed
+#### AC-10.4.5: Confirm actual shortage
 
-**Given** Quantity Received still differs from Quantity Ordered after investigation  
-**When** the receiving worker confirms that the difference is correct  
-**Then** the system records the received quantities  
-**And** allows the receiving process to be completed
+**Given** a Supplier Order Line contains 60 units ordered  
+**And** only 48 units were delivered  
+**And** the receiving worker has investigated the shortage  
+**When** the worker confirms the actual received quantity  
+**Then** the system records the confirmed shortage of 12 units  
+**And** preserves the original ordered quantity  
+**And** allows the receiving session to proceed to completion.
 
-#### AC-10.4.6: Receiving is completed
+#### AC-10.4.6: Prevent unreviewed discrepancy
 
-**Given** the receiving worker has finished scanning and reviewing discrepancies  
-**When** the worker completes the receiving process  
-**Then** the Supplier Order is recorded as received  
-**And** becomes available for the Put Away process
+**Given** a Receiving Record contains an unresolved quantity discrepancy  
+**When** the receiving worker attempts to complete receiving without confirming it  
+**Then** the system rejects completion  
+**And** identifies the discrepancy requiring review.
+
+#### AC-10.4.7: Preserve cumulative received quantity
+
+**Given** a Supplier Order Line contains 100 units ordered  
+**And** 40 units were recorded in a previous completed receiving session  
+**When** another receiving session records 30 additional units  
+**And** that session is completed  
+**Then** the cumulative Quantity Received becomes 70 units  
+**And** the original Quantity Ordered remains 100 units.
+
+### US-10.5: Complete Receiving and Prepare for Put Away
+
+#### AC-10.5.1: Complete receiving session
+
+**Given** a valid Receiving Record contains scanned quantities  
+**And** a valid Receiving Door has been selected  
+**And** all identified discrepancies have been reviewed  
+**When** the receiving worker completes the session  
+**Then** the system marks the Receiving Record as Completed  
+**And** records the completion date and time  
+**And** preserves the received quantities.
+
+#### AC-10.5.2: Mark order Partially Received
+
+**Given** a Supplier Order contains 100 units ordered  
+**And** 60 units have been received in completed sessions  
+**And** the Supplier Order remains open for further deliveries  
+**When** the receiving session is completed  
+**Then** the system sets the Supplier Order status to Partially Received  
+**And** records 40 units as still outstanding.
+
+#### AC-10.5.3: Mark order Received
+
+**Given** all expected receiving sessions for a Supplier Order are finished  
+**And** the receiving worker has confirmed any discrepancies  
+**And** no additional deliveries are expected for the order  
+**When** an authorized user closes receiving for that Supplier Order  
+**Then** the system sets the Supplier Order status to Received  
+**And** preserves the actual quantities received.
+
+#### AC-10.5.4: Make received products available for Put Away
+
+**Given** a Receiving Record has been completed  
+**And** its products are located at Receiving Door "DOOR-3"  
+**When** a Put Away worker requests available receiving work  
+**Then** the system makes the received products available for Put Away  
+**And** identifies "DOOR-3" as their current location  
+**And** does not mark the products as already stored in destination bins.
+
+#### AC-10.5.5: Prevent duplicate completion
+
+**Given** a Receiving Record has already been completed  
+**When** the receiving worker attempts to complete the same record again  
+**Then** the system rejects the duplicate completion  
+**And** does not add the received quantities a second time.
+
+#### AC-10.5.6: Preserve receiving history
+
+**Given** a Receiving Record has been completed  
+**When** an authorized Manager reviews the Supplier Order history  
+**Then** the system displays the Receiving Record  
+**And** identifies the Receiving Door, receiving worker, quantities, and confirmed discrepancies  
+**And** preserves the original Supplier Order information.

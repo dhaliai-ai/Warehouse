@@ -1,10 +1,11 @@
+
 # Feature: Put Away Received Items
 
 **Feature ID:** 11  
 **Branch pattern:** `feature/11-put-away-received-items`  
-**Status:** Draft  
+**Status:** Draft - Proposed Rules Pending Approval  
 **Created:** 2026-09-28  
-**Input:** The system assists a put-away worker in moving received items from the receiving door to warehouse storage locations by assigning received orders, determining the putaway sequence, directing the worker to each location, verifying locations by scanning, and updating inventory after items are put away.
+**Input:** The Warehouse Management System assists put-away workers in moving received products from receiving doors to designated warehouse storage locations. The system identifies completed receiving records awaiting Put Away, offers assignments to workers, determines an efficient sequence of storage locations, verifies destination bins through barcode scanning, supports alternate locations when necessary, and updates inventory after each confirmed placement. Put Away remains separate from Supplier Order receiving.
 
 ---
 
@@ -12,84 +13,175 @@
 
 ### US-11.1: Select Received Order for Put Away
 
-**As a** put-away worker  
-**I want to** receive a Supplier Order that is ready for Put Away  
-**So that** I know which received order and receiving door to work from
+**As a** Put Away Worker  
+**I want to** receive an assignment for products that have completed receiving  
+**So that** I know which products to move and which Receiving Door to collect them from.
 
 **Priority:** P1  
-**Independent test:** Start Put Away and confirm that the system identifies a received Supplier Order and its receiving location.
+**Independent test:** Start Put Away with a completed Receiving Record available and verify that the system offers an assignment identifying the Supplier Order and Receiving Door.
 
 ### US-11.2: Follow Putaway Sequence
 
-**As a** put-away worker  
-**I want to** receive putaway locations in an efficient sequence  
-**So that** I can move received items through the warehouse efficiently
+**As a** Put Away Worker  
+**I want to** receive storage locations in an efficient sequence  
+**So that** I can move received products through the warehouse without unnecessary travel.
 
 **Priority:** P1  
-**Independent test:** Accept a received order and confirm that the system provides the next Warehouse Location for Put Away.
+**Independent test:** Accept an assignment containing multiple products and verify that the system provides an ordered sequence of destination locations.
 
 ### US-11.3: Verify Putaway Location
 
-**As a** put-away worker  
-**I want to** scan the destination bin before placing items  
-**So that** the system can verify that I am putting the items in the correct location
+**As a** Put Away Worker  
+**I want to** scan the destination bin before placing products  
+**So that** the system confirms that I am using the correct storage location.
 
 **Priority:** P1  
-**Independent test:** Scan the destination bin and confirm that the system verifies whether it is the expected location.
+**Independent test:** Scan the assigned destination bin and verify that the system accepts the correct barcode and rejects a different bin.
 
 ### US-11.4: Complete Item Putaway
 
-**As a** put-away worker  
-**I want to** confirm that items have been placed in the assigned location  
-**So that** the system can update Inventory and direct me to the next location
+**As a** Put Away Worker  
+**I want to** confirm the quantity placed in each destination bin  
+**So that** inventory is updated accurately and the system can direct me to the next task.
 
 **Priority:** P1  
-**Independent test:** Complete a putaway step and confirm that Inventory is updated and the next location is provided when more items remain.
+**Independent test:** Confirm placement of a valid quantity in the verified destination bin and verify that the Inventory quantity increases by exactly that amount.
 
 ### US-11.5: Request Another Location
 
-**As a** put-away worker  
-**I want to** request another location when the assigned location cannot hold all of the product  
-**So that** I can complete the Put Away process
+**As a** Put Away Worker  
+**I want to** request another storage location when the assigned bin cannot hold the products  
+**So that** I can continue Put Away without placing products in an unsuitable location.
 
 **Priority:** P1  
-**Independent test:** Indicate that the assigned location cannot hold all of the product and confirm that another location can be requested.
+**Independent test:** Report insufficient capacity in the assigned bin and verify that the system offers a suitable alternative or reports that no location is available.
+
+### US-11.6: Complete Putaway Assignment
+
+**As a** Put Away Worker  
+**I want to** finish an assignment after all received quantities have been placed  
+**So that** the system records completion and makes another assignment available.
+
+**Priority:** P1  
+**Independent test:** Complete every instruction in an assignment and verify that the assignment is marked Completed and cannot be completed again.
 
 ---
 
 ## Functional Requirements
 
-- **FR-001:** The system MUST identify received Supplier Orders that are ready for Put Away.
-- **FR-002:** The system MUST identify the Receiving Door where the selected received Supplier Order is waiting.
-- **FR-003:** The system MUST allow the put-away worker to accept or reject a received order offered for Put Away.
-- **FR-004:** After the worker accepts an order, the system MUST determine the sequence in which the received items should be put away.
-- **FR-005:** The system MUST direct the worker to the next Warehouse Location in the putaway sequence.
-- **FR-006:** The putaway instructions MUST identify the Warehouse Location needed by the worker, such as aisle, row, and slot.
-- **FR-007:** The system MUST allow the worker to scan the destination bin to verify that the worker is at the correct location.
-- **FR-008:** The system MUST identify when the scanned bin does not match the expected destination location.
-- **FR-009:** The system MUST allow the worker to confirm that the assigned items have been placed in the destination location.
-- **FR-010:** After Put Away is confirmed, the system MUST update the Inventory quantity at that Warehouse Location.
-- **FR-011:** If more items remain to be put away, the system MUST provide the worker with the next location in the putaway sequence.
-- **FR-012:** The system MUST allow the worker to request another location when the assigned location cannot hold all of the product.
-- **FR-013:** The system MUST identify when all items for the received order have been put away.
-- **FR-014:** After an order is completely put away, the worker MUST be able to continue with another received order.
-- **FR-015:** The exact method used by the system to determine the most efficient putaway sequence is **TBD**.
-- **FR-016:** How the system selects the next order after a worker rejects an offered order is **TBD**.
-- **FR-017:** Behavior when no received Supplier Orders are waiting for Put Away is **TBD**.
-- **FR-018:** Behavior when a destination bin barcode cannot be scanned or read is **TBD**.
-- **FR-019:** How the system selects another Warehouse Location when the assigned location cannot hold all of the product is **TBD**.
-- **FR-020:** Behavior when no suitable Warehouse Location is available is **TBD**.
+- **FR-001:** The system MUST identify completed Receiving Records containing quantities that have not yet been fully put away.
+- **FR-002:** The system MUST make received products available for Put Away only after their receiving session has been completed.
+- **FR-003:** The system MUST identify the Supplier Order associated with each available Receiving Record.
+- **FR-004:** The system MUST identify the Receiving Door where the received products are waiting.
+- **FR-005:** The system MUST offer available Putaway Assignments to authorized Put Away Workers.
+- **FR-006:** The system MUST allow a worker to accept or reject an offered Putaway Assignment.
+- **FR-007:** The system MUST record which worker accepts a Putaway Assignment.
+- **FR-008:** The system MUST prevent the same received quantities from being assigned to multiple active Putaway Assignments.
+- **FR-009:** When a worker rejects an offered assignment, the system MUST leave the received products available for reassignment.
+- **FR-010:** The system MUST identify when no received products are waiting for Put Away.
+- **FR-011:** After an assignment is accepted, the system MUST determine a sequence of Putaway Instructions.
+- **FR-012:** Each Putaway Instruction MUST identify the Individual Item, quantity to move, and destination Warehouse Location.
+- **FR-013:** Each Putaway Instruction MUST identify the destination aisle, row, and slot.
+- **FR-014:** The system MUST provide the worker with the next Putaway Instruction in the assigned sequence.
+- **FR-015:** The system MUST prioritize suitable existing primary storage bins when they can accept the products.
+- **FR-016:** The system MUST support selecting suitable reserve or overflow bins when a primary bin cannot accept the full quantity.
+- **FR-017:** The system MUST consider configured storage restrictions and available capacity when recommending a destination bin.
+- **FR-018:** The system MUST prevent an inactive or unavailable Warehouse Location from being selected for new Put Away.
+- **FR-019:** The system MUST keep all destinations within the Warehouse associated with the receiving work.
+- **FR-020:** The system MUST allow the worker to scan the destination bin barcode.
+- **FR-021:** The system MUST verify that the scanned bin matches the expected destination Warehouse Location.
+- **FR-022:** The system MUST reject confirmation of Put Away when the scanned bin does not match the assigned destination.
+- **FR-023:** The system MUST identify an unknown or unreadable destination barcode without recording the placement.
+- **FR-024:** The system MUST require successful destination verification before confirming an instruction.
+- **FR-025:** The system MUST allow the worker to confirm the actual quantity placed in the verified destination bin.
+- **FR-026:** The system MUST require confirmed Put Away quantities to be positive integers expressed in individual units.
+- **FR-027:** The system MUST prevent the confirmed quantity from exceeding the quantity remaining for the instruction.
+- **FR-028:** The system MUST update Inventory at the verified destination Warehouse Location after a successful Put Away confirmation.
+- **FR-029:** The system MUST increase the destination Inventory quantity by exactly the confirmed quantity.
+- **FR-030:** The system MUST reduce the quantity awaiting Put Away by the same confirmed quantity.
+- **FR-031:** The system MUST preserve a record of each confirmed Put Away movement.
+- **FR-032:** The system MUST prevent the same Put Away confirmation from increasing Inventory more than once.
+- **FR-033:** The system MUST allow a worker to request another location when the assigned bin lacks sufficient capacity.
+- **FR-034:** The system MUST recommend an alternative suitable Warehouse Location when one is available.
+- **FR-035:** The system MUST require the worker to scan and verify an alternative bin before confirming placement.
+- **FR-036:** The system MUST allow an instruction to be divided between multiple suitable bins when necessary.
+- **FR-037:** The system MUST preserve the quantity remaining to be put away when only part of an instruction is completed.
+- **FR-038:** The system MUST identify when no suitable alternative location is available.
+- **FR-039:** When no suitable location is available, the system MUST leave the remaining quantity awaiting Put Away.
+- **FR-040:** The system MUST notify an authorized Supervisor when Put Away cannot continue because no suitable location is available.
+- **FR-041:** After an instruction is completed, the system MUST provide the next outstanding instruction in the sequence.
+- **FR-042:** The system MUST identify when all instructions for an assignment have been completed.
+- **FR-043:** The system MUST mark a Putaway Assignment as Completed only when all assigned quantities have been successfully put away.
+- **FR-044:** The system MUST record the completion date and time of the Putaway Assignment.
+- **FR-045:** The system MUST allow the worker to request another available Putaway Assignment after completing the current assignment.
+- **FR-046:** The system MUST maintain Putaway Assignment statuses of Offered, Accepted, In Progress, Rejected, Blocked, and Completed.
+- **FR-047:** The system MUST prevent completed assignments from being modified through ordinary Put Away operations.
+- **FR-048:** The system MUST reject attempts to complete nonexistent or already completed assignments.
+- **FR-049:** The system MUST restrict Put Away operations to authorized warehouse personnel.
+- **FR-050:** The system MUST preserve the relationship between Putaway Assignments, Receiving Records, Supplier Orders, Warehouse Locations, and Inventory.
+- **FR-051:** The system MUST maintain received quantities separately from quantities already put away.
+- **FR-052:** The system MUST NOT treat completion of Supplier Order receiving as completion of Put Away.
+- **FR-053:** The system MUST preserve Put Away movement history for inventory reconciliation and auditing.
 
 ---
 
 ## Key Entities
 
-- **Putaway Assignment:** A received Supplier Order assigned or offered to a put-away worker.
-- **Putaway Instruction:** A step in the system-determined Put Away sequence.
-- **Warehouse Location:** A location where Inventory can be stored and verified by scanning.
-- **Inventory:** The quantity of an Individual Item stored in a Warehouse Location.
-- **Receiving Door:** The location where a received Supplier Order waits before Put Away.
-- **Individual Item:** A product being put away.
+### Putaway Assignment
+
+Represents a set of received products offered or assigned to a Put Away Worker.
+
+The assignment identifies the receiving source, assigned worker, and current processing status.
+
+### Putaway Instruction
+
+Represents an individual storage task within a Putaway Assignment.
+
+Each instruction identifies an Item, a quantity, a destination Warehouse Location, and its position in the put-away sequence.
+
+### Receiving Record
+
+Represents a completed receiving session containing products awaiting Put Away.
+
+Receiving Records are created in Feature 10.
+
+### Receiving Record Line
+
+Represents the quantity of a particular Item received during a receiving session.
+
+The quantity received is tracked separately from the quantity already put away.
+
+### Supplier Order
+
+Represents the purchase order associated with the received shipment.
+
+### Warehouse Location
+
+Represents a scannable storage bin or slot within a Warehouse.
+
+Warehouse Locations identify where Inventory is physically stored.
+
+### Inventory
+
+Represents the quantity of an Individual Item at a specific Warehouse Location.
+
+Inventory maintenance is defined in Feature 3.
+
+### Receiving Door
+
+Represents the location where received products wait before being moved to storage.
+
+### Individual Item
+
+Represents a product being put away.
+
+### Putaway Movement
+
+Represents a completed movement of a specific quantity of an Item from a receiving location into a storage bin.
+
+### User
+
+Represents an employee authorized to perform Put Away or review blocked assignments.
 
 ---
 
@@ -97,85 +189,202 @@
 
 ### Putaway Assignment
 
-Represents a received Supplier Order assigned or offered to a put-away worker.
-
-**Attributes:**
-- [TBD: Assignment identifier]
-- Status [exact values TBD]
+| Attribute | Type | Description |
+|---|---|---|
+| putawayAssignmentId | Integer | Unique Putaway Assignment identifier |
+| receivingRecordId | Integer | Foreign key referencing Receiving Record |
+| assignedUserId | Integer | User who accepted the assignment; nullable before acceptance |
+| status | String | Offered, Accepted, In Progress, Rejected, Blocked, or Completed |
+| offeredAt | DateTime | Date and time the assignment was offered |
+| acceptedAt | DateTime | Date and time the worker accepted it |
+| completedAt | DateTime | Date and time all assigned work was completed |
 
 **Relationships:**
-- A Putaway Assignment is associated with a received Supplier Order.
-- A Putaway Assignment identifies the Receiving Door where the order is waiting.
-- A put-away worker may accept or reject the assignment.
+- Each Putaway Assignment references one Receiving Record.
+- A Receiving Record may have multiple assignments over time when work is rejected or reassigned.
 - An accepted Putaway Assignment contains one or more Putaway Instructions.
+- A Putaway Assignment may be accepted by one User.
+
+**Constraints:**
+- putawayAssignmentId must be unique.
+- The referenced Receiving Record must exist and be completed.
+- The same received quantities cannot be allocated to multiple active assignments.
+- Completed assignments cannot be completed again.
 
 ### Putaway Instruction
 
-Represents a step in the system-determined putaway sequence.
-
-**Attributes:**
-- Individual Item
-- Quantity to Put Away
-- Destination Warehouse Location
-- Sequence Order
+| Attribute | Type | Description |
+|---|---|---|
+| putawayInstructionId | Integer | Unique Putaway Instruction identifier |
+| putawayAssignmentId | Integer | Foreign key referencing Putaway Assignment |
+| receivingRecordLineId | Integer | Foreign key referencing Receiving Record Line |
+| itemId | Integer | Foreign key referencing Individual Item |
+| destinationLocationId | Integer | Foreign key referencing Warehouse Location |
+| sequenceNumber | Integer | Position in the put-away sequence |
+| quantityToPutaway | Integer | Quantity assigned for placement in individual units |
+| quantityPutaway | Integer | Quantity already confirmed as placed |
+| status | String | Pending, In Progress, Blocked, or Completed |
 
 **Relationships:**
-- A Putaway Assignment contains one or more Putaway Instructions.
-- Each Putaway Instruction refers to an Individual Item.
-- Each Putaway Instruction directs the worker to a Warehouse Location.
-- Completing a Putaway Instruction updates Inventory at that location.
+- Each Putaway Instruction belongs to one Putaway Assignment.
+- Each instruction references a received Item and a destination Warehouse Location.
+- One instruction may result in multiple Putaway Movements if products are split between bins.
+
+**Constraints:**
+- quantityToPutaway must be greater than zero.
+- quantityPutaway cannot be negative.
+- quantityPutaway cannot exceed quantityToPutaway.
+- The destination must belong to the same Warehouse as the receiving work.
+
+**Derived Value:**
+- Remaining Quantity = quantityToPutaway - quantityPutaway.
+
+### Receiving Record
+
+| Attribute | Type | Description |
+|---|---|---|
+| receivingRecordId | Integer | Unique Receiving Record identifier |
+| supplierOrderId | Integer | Foreign key referencing Supplier Order |
+| warehouseId | Integer | Foreign key referencing Warehouse |
+| receivingDoorId | Integer | Foreign key referencing Receiving Door |
+| status | String | In Progress or Completed |
+
+**Relationships:**
+- A completed Receiving Record supplies products for Put Away.
+- Each Receiving Record contains Receiving Record Lines.
+- Receiving is defined in Feature 10.
+
+### Receiving Record Line
+
+| Attribute | Type | Description |
+|---|---|---|
+| receivingRecordLineId | Integer | Unique Receiving Record Line identifier |
+| receivingRecordId | Integer | Foreign key referencing Receiving Record |
+| itemId | Integer | Foreign key referencing Individual Item |
+| quantityReceivedUnits | Integer | Quantity received in individual units |
+| quantityPutawayUnits | Integer | Cumulative quantity confirmed as put away |
+
+**Relationships:**
+- Each Receiving Record Line belongs to one Receiving Record.
+- One Receiving Record Line may be processed by multiple Putaway Instructions or Movements.
+
+**Constraints:**
+- quantityPutawayUnits cannot exceed quantityReceivedUnits.
+- The system must preserve any quantity not yet put away.
+
+**Derived Value:**
+- Quantity Awaiting Put Away = quantityReceivedUnits - quantityPutawayUnits.
+
+### Supplier Order
+
+| Attribute | Type | Description |
+|---|---|---|
+| supplierOrderId | Integer | Unique Supplier Order identifier |
+| poNumber | String | Unique PO Number |
+
+**Relationships:**
+- A Supplier Order may have multiple Receiving Records.
+- Received products are put away through their associated Receiving Records.
 
 ### Warehouse Location
 
-Represents a location where Inventory can be stored.
-
-**Relevant Attributes:**
-- Aisle
-- Row
-- Slot
-- [TBD: Scannable location/bin identifier]
+| Attribute | Type | Description |
+|---|---|---|
+| locationId | Integer | Unique Warehouse Location identifier |
+| warehouseId | Integer | Foreign key referencing Warehouse |
+| locationCode | String | Unique scannable bin identifier within the Warehouse |
+| aisle | String | Aisle identifier |
+| row | String | Row identifier |
+| slot | String | Slot or bin identifier |
+| locationType | String | Primary or Reserve |
+| capacityUnits | Integer | Configured maximum storage capacity in units |
+| isActive | Boolean | Indicates whether the location is available |
 
 **Relationships:**
+- A Warehouse Location belongs to one Warehouse.
 - A Warehouse Location may contain Inventory.
-- A Warehouse Location can be scanned to verify that the put-away worker has reached the expected destination.
-- Another Warehouse Location may be requested when the assigned location cannot hold all of the product.
+- A Warehouse Location may be assigned to multiple Putaway Instructions over time.
+
+**Constraints:**
+- locationCode must be unique within its Warehouse.
+- A location must be active before being assigned.
+- The system must respect configured capacity and storage restrictions.
 
 ### Inventory
 
-Represents an Individual Item quantity in a Warehouse Location.
-
-**Attributes:**
-- Individual Item
-- Warehouse Location
-- Quantity
+| Attribute | Type | Description |
+|---|---|---|
+| inventoryId | Integer | Unique Inventory identifier |
+| itemId | Integer | Foreign key referencing Individual Item |
+| locationId | Integer | Foreign key referencing Warehouse Location |
+| quantity | Integer | Current stored quantity in individual units |
 
 **Relationships:**
-- Inventory is associated with an Individual Item.
-- Inventory is associated with a Warehouse Location.
-- Inventory Quantity is updated when Put Away is confirmed.
+- Each Inventory record references one Item and one Warehouse Location.
+- Putaway Movements increase Inventory at verified destination locations.
+- Inventory maintenance is defined in Feature 3.
+
+**Constraints:**
+- Inventory quantity cannot be negative.
+- The combination of itemId and locationId must be unique.
 
 ### Receiving Door
 
-Represents the location where a received Supplier Order waits before Put Away.
-
-**Relevant Attributes:**
-- [TBD: Receiving Door identifier]
+| Attribute | Type | Description |
+|---|---|---|
+| receivingDoorId | Integer | Unique Receiving Door identifier |
+| warehouseId | Integer | Foreign key referencing Warehouse |
+| doorCode | String | Unique Receiving Door code within the Warehouse |
 
 **Relationships:**
-- A received Supplier Order is associated with a Receiving Door.
-- The put-away worker uses the Receiving Door to locate the received order.
+- Each Receiving Door belongs to a Warehouse.
+- Completed Receiving Records identify where received products await Put Away.
 
 ### Individual Item
 
-Represents a product being put away.
-
-**Relevant Attributes:**
-- SKU / Item Number
-- Description
+| Attribute | Type | Description |
+|---|---|---|
+| itemId | Integer | Unique Individual Item identifier |
+| itemNumber | String | Unique SKU or Item Number |
+| description | String | Item description |
 
 **Relationships:**
-- An Individual Item may be included in one or more Putaway Instructions.
-- An Individual Item may exist as Inventory in one or more Warehouse Locations.
+- One Individual Item may appear in multiple Putaway Instructions.
+- One Individual Item may be stored in multiple Warehouse Locations.
+
+### Putaway Movement
+
+| Attribute | Type | Description |
+|---|---|---|
+| putawayMovementId | Integer | Unique movement identifier |
+| putawayInstructionId | Integer | Foreign key referencing Putaway Instruction |
+| receivingRecordLineId | Integer | Foreign key referencing Receiving Record Line |
+| itemId | Integer | Foreign key referencing Individual Item |
+| destinationLocationId | Integer | Verified destination Warehouse Location |
+| quantityMoved | Integer | Quantity placed in individual units |
+| movedBy | Integer | User who confirmed placement |
+| movedAt | DateTime | Date and time the movement was confirmed |
+
+**Relationships:**
+- Each Putaway Movement belongs to a Putaway Instruction.
+- Each movement references the received Item and verified destination.
+- Confirmed movements update Inventory and received quantities awaiting Put Away.
+
+**Constraints:**
+- quantityMoved must be greater than zero.
+- The destination must be verified before a movement is recorded.
+- A confirmed movement cannot be applied to Inventory more than once.
+
+### User
+
+| Attribute | Type | Description |
+|---|---|---|
+| userId | Integer | Unique User identifier |
+| role | String | Assigned authorization role |
+
+**Relationships:**
+- Put Away Workers accept and complete assignments.
+- Supervisors review blocked work and storage exceptions.
 
 ---
 
@@ -183,94 +392,229 @@ Represents a product being put away.
 
 ### US-11.1: Select Received Order for Put Away
 
-#### AC-11.1.1: Received Order is available for Put Away
+#### AC-11.1.1: Offer received work
 
-**Given** a Supplier Order has completed the receiving process  
-**When** the put-away worker starts the Put Away process  
-**Then** the system identifies a received Supplier Order that is waiting for Put Away  
-**And** shows the Receiving Door where the order is located
+**Given** a completed Receiving Record contains products awaiting Put Away  
+**And** the user is authenticated as a Put Away Worker  
+**When** the worker starts the Put Away process  
+**Then** the system offers an available Putaway Assignment  
+**And** displays the associated Supplier Order and Receiving Door.
 
-#### AC-11.1.2: Worker accepts the Order
+#### AC-11.1.2: Accept assignment
 
-**Given** the system offers a received Supplier Order for Put Away  
-**When** the put-away worker accepts the order  
-**Then** the system begins the Put Away process for that order
+**Given** the system has offered a Putaway Assignment  
+**When** the Put Away Worker accepts the assignment  
+**Then** the system records the worker as the assigned User  
+**And** changes the assignment status to Accepted  
+**And** makes its Putaway Instructions available.
 
-#### AC-11.1.3: Worker rejects the Order
+#### AC-11.1.3: Reject assignment
 
-**Given** the system offers a received Supplier Order for Put Away  
-**When** the put-away worker rejects the order  
-**Then** [TBD: how the system selects or assigns the next order]
+**Given** the system has offered a Putaway Assignment  
+**When** the Put Away Worker rejects the assignment  
+**Then** the system records the assignment as Rejected  
+**And** leaves its unassigned received quantities available for another assignment  
+**And** offers another eligible assignment when one is available.
+
+#### AC-11.1.4: No Put Away work available
+
+**Given** no completed Receiving Record has products awaiting Put Away  
+**When** the worker requests a Putaway Assignment  
+**Then** the system reports that no Put Away work is available  
+**And** does not create an empty assignment.
+
+#### AC-11.1.5: Prevent duplicate active assignment
+
+**Given** received quantities are already allocated to an active Putaway Assignment  
+**When** another worker requests Put Away work  
+**Then** the system does not allocate those same quantities to another active assignment.
 
 ### US-11.2: Follow Putaway Sequence
 
-#### AC-11.2.1: System provides first Putaway Location
+#### AC-11.2.1: Generate first Putaway Instruction
 
-**Given** the put-away worker has accepted a received Supplier Order  
-**When** the Put Away process begins  
-**Then** the system determines the putaway sequence  
-**And** provides the first Warehouse Location
+**Given** a Put Away Worker has accepted an assignment  
+**And** suitable destination locations exist  
+**When** the system prepares the put-away sequence  
+**Then** the system generates Putaway Instructions  
+**And** provides the first destination location with its aisle, row, and slot.
 
-#### AC-11.2.2: System provides next Putaway Location
+#### AC-11.2.2: Provide next destination
 
-**Given** the worker has completed a putaway step  
-**And** more items remain to be put away  
-**When** the system continues the Put Away process  
-**Then** the system provides the next Warehouse Location in the putaway sequence
+**Given** the worker has completed the current Putaway Instruction  
+**And** additional instructions remain  
+**When** the system advances the assignment  
+**Then** the system displays the next destination location.
+
+#### AC-11.2.3: Prefer suitable primary bin
+
+**Given** an Item has an active primary storage bin with sufficient available capacity  
+**When** the system selects a Put Away destination  
+**Then** the system recommends the suitable primary bin before an overflow bin.
+
+#### AC-11.2.4: Use reserve location when needed
+
+**Given** the primary storage bin cannot hold the required quantity  
+**And** a suitable reserve location exists  
+**When** the system selects an alternative destination  
+**Then** the system recommends the reserve location  
+**And** identifies its aisle, row, and slot.
 
 ### US-11.3: Verify Putaway Location
 
-#### AC-11.3.1: Correct Destination Bin is scanned
+#### AC-11.3.1: Verify correct destination bin
 
-**Given** the system has directed the worker to a Warehouse Location  
-**When** the worker scans the expected destination bin  
-**Then** the system verifies that the worker is at the correct location
+**Given** a Putaway Instruction identifies destination bin "A1-R2-S3"  
+**When** the worker scans barcode "A1-R2-S3"  
+**Then** the system verifies the destination  
+**And** allows the worker to confirm placement.
 
-#### AC-11.3.2: Incorrect Destination Bin is scanned
+#### AC-11.3.2: Reject incorrect destination bin
 
-**Given** the system has directed the worker to a Warehouse Location  
-**When** the worker scans a different destination bin  
-**Then** the system identifies that the scanned location is not the expected location
+**Given** a Putaway Instruction identifies destination bin "A1-R2-S3"  
+**When** the worker scans barcode "A1-R2-S4"  
+**Then** the system reports that the scanned bin is incorrect  
+**And** does not allow the placement to be confirmed for the wrong bin.
 
-#### AC-11.3.3: Destination Barcode cannot be read
+#### AC-11.3.3: Handle unreadable barcode
 
-**Given** the worker is at the destination location  
-**When** the destination barcode cannot be scanned or read  
-**Then** [TBD: behavior not specified in the interview or class notes]
+**Given** a worker is at an assigned destination bin  
+**When** the destination barcode cannot be read  
+**Then** the system reports that the location has not been verified  
+**And** does not update Inventory  
+**And** allows the worker to retry scanning or request Supervisor assistance.
+
+#### AC-11.3.4: Reject inactive location
+
+**Given** a Warehouse Location is inactive  
+**When** a worker attempts to use it as a Put Away destination  
+**Then** the system rejects the location  
+**And** does not record Inventory placement there.
 
 ### US-11.4: Complete Item Putaway
 
-#### AC-11.4.1: Items are placed in assigned Location
+#### AC-11.4.1: Update Inventory after confirmed placement
 
-**Given** the worker has verified the correct destination location  
-**When** the worker confirms that the items have been put away  
-**Then** the system updates the Inventory Quantity at that Warehouse Location
+**Given** a Putaway Instruction requires 20 units of Item A  
+**And** the correct destination bin has been scanned and verified  
+**And** the destination Inventory currently contains 30 units of Item A  
+**When** the worker confirms placement of 20 units  
+**Then** the system updates the destination Inventory to 50 units  
+**And** records 20 units as put away  
+**And** preserves a Putaway Movement record.
 
-#### AC-11.4.2: More Items remain
+#### AC-11.4.2: Reject quantity greater than remaining
 
-**Given** the worker has completed a Putaway Instruction  
-**And** more items remain to be put away  
-**When** the system continues the Put Away process  
-**Then** the system provides the next Warehouse Location
+**Given** a Putaway Instruction has 10 units remaining  
+**And** the destination bin has been verified  
+**When** the worker attempts to confirm placement of 15 units  
+**Then** the system rejects the confirmation  
+**And** Inventory remains unchanged.
 
-#### AC-11.4.3: All Items are put away
+#### AC-11.4.3: Reject placement without bin verification
 
-**Given** all Putaway Instructions for the received Supplier Order have been completed  
-**When** the final putaway step is confirmed  
-**Then** the system completes the Put Away process for that order
+**Given** a Putaway Instruction requires 12 units  
+**And** no destination bin has been successfully verified  
+**When** the worker attempts to confirm placement  
+**Then** the system rejects the confirmation  
+**And** Inventory remains unchanged.
+
+#### AC-11.4.4: Complete partial instruction
+
+**Given** a Putaway Instruction requires 30 units  
+**And** the assigned destination bin can hold only 20 additional units  
+**When** the worker verifies the bin and confirms placement of 20 units  
+**Then** the system increases Inventory by 20 units  
+**And** records 10 units as remaining for Put Away  
+**And** does not mark the instruction as fully Completed.
+
+#### AC-11.4.5: Prevent duplicate Inventory update
+
+**Given** a Putaway Movement for 15 units has already been confirmed  
+**When** the same confirmation is submitted again  
+**Then** the system rejects the duplicate operation  
+**And** does not increase Inventory a second time.
 
 ### US-11.5: Request Another Location
 
-#### AC-11.5.1: Assigned Location cannot hold all Product
+#### AC-11.5.1: Request alternative bin
 
-**Given** the worker reaches the assigned Warehouse Location  
-**And** the location cannot hold all of the product  
+**Given** the assigned destination bin cannot hold all of the product  
+**And** another suitable Warehouse Location exists  
+**When** the Put Away Worker requests another location  
+**Then** the system recommends the alternative location  
+**And** displays its aisle, row, and slot  
+**And** requires barcode verification before placement.
+
+#### AC-11.5.2: Split quantity between bins
+
+**Given** 30 units of Item A require Put Away  
+**And** the primary bin can accept 20 units  
+**And** a suitable reserve bin can accept at least 10 units  
+**When** the worker confirms 20 units in the primary bin  
+**And** verifies and confirms 10 units in the reserve bin  
+**Then** the system records both Putaway Movements  
+**And** increases Inventory by the appropriate quantity at each bin  
+**And** records all 30 units as put away.
+
+#### AC-11.5.3: No suitable alternative location
+
+**Given** the assigned destination bin cannot hold the remaining products  
+**And** no suitable alternative Warehouse Location exists  
 **When** the worker requests another location  
-**Then** the system allows another Warehouse Location to be used  
-**And** [TBD: how the alternate location is selected]
+**Then** the system reports that no suitable location is available  
+**And** leaves the remaining quantity awaiting Put Away  
+**And** marks the work as Blocked  
+**And** notifies an authorized Supervisor.
 
-#### AC-11.5.2: No suitable alternate Location is available
+#### AC-11.5.4: Reject location in another Warehouse
 
-**Given** the assigned location cannot hold all of the product  
-**When** another suitable Warehouse Location cannot be identified  
-**Then** [TBD: behavior not specified in the interview or class notes]
+**Given** a Putaway Assignment belongs to Warehouse A  
+**And** a proposed destination belongs to Warehouse B  
+**When** the worker attempts to use that destination  
+**Then** the system rejects the location  
+**And** does not update Inventory.
+
+### US-11.6: Complete Putaway Assignment
+
+#### AC-11.6.1: Complete all Putaway Instructions
+
+**Given** every Putaway Instruction in an assignment has been completed  
+**And** no assigned quantity remains awaiting Put Away  
+**When** the system evaluates the assignment  
+**Then** the system marks the Putaway Assignment as Completed  
+**And** records its completion date and time.
+
+#### AC-11.6.2: Prevent premature completion
+
+**Given** a Putaway Assignment still contains unplaced quantities  
+**When** the worker attempts to complete the assignment  
+**Then** the system rejects completion  
+**And** identifies the remaining Putaway Instructions.
+
+#### AC-11.6.3: Request another assignment
+
+**Given** a Put Away Worker has completed an assignment  
+**And** another completed Receiving Record has products awaiting Put Away  
+**When** the worker requests additional work  
+**Then** the system offers another eligible Putaway Assignment.
+
+#### AC-11.6.4: Reject duplicate assignment completion
+
+**Given** a Putaway Assignment has already been marked Completed  
+**When** a worker attempts to complete it again  
+**Then** the system rejects the duplicate completion  
+**And** does not change Inventory.
+
+#### AC-11.6.5: Preserve Put Away history
+
+**Given** a Putaway Assignment has been completed  
+**When** an authorized Manager reviews the assignment history  
+**Then** the system displays the associated Receiving Record, assigned worker, completed movements, destination bins, quantities, and completion time.
+
+#### AC-11.6.6: Reject unauthorized Put Away
+
+**Given** the user is authenticated as a Customer Service Clerk without Put Away permission  
+**When** the user attempts to confirm a Putaway Instruction  
+**Then** the system denies the operation  
+**And** does not update Inventory.

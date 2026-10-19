@@ -1,64 +1,84 @@
+
 # Feature: Maintain Company
 
 **Feature ID:** 1  
 **Branch pattern:** `feature/1-maintain-company`  
-**Status:** Draft  
+**Status:** Draft - Proposed Rules Pending Approval  
 **Created:** 2026-09-25  
-**Input:** The system represents one company; that single company record is added, edited, and deleted so company data stays accurate.
+**Input:** The Warehouse Management System supports one company that may operate multiple warehouses. Authorized management personnel maintain company information. The system protects relationships and historical records when company information is updated or deleted.
 
 ---
 
 ## User Stories
 
-### US-1.1: Add the Company
+### US-1.1: Add Company
 
-**As a** [TBD: authorized role not specified]  
-**I want to** add the company  
-**So that** the one company the system represents is recorded
-
-**Priority:** P1  
-**Independent test:** With no company recorded, add the company with valid information and confirm it is saved.
-
-### US-1.2: Edit the Company
-
-**As a** [TBD: authorized role not specified]  
-**I want to** edit the company  
-**So that** the company record stays accurate
+**As a** Manager or Administrator  
+**I want to** add the company's information  
+**So that** the system can identify the business operating the warehouses.
 
 **Priority:** P1  
-**Independent test:** Change the existing company and confirm the saved record shows the updated information.
+**Independent test:** Create a company with valid information and verify that exactly one company record exists.
 
-### US-1.3: Delete the Company
+### US-1.2: Edit Company
 
-**As a** [TBD: authorized role not specified]  
-**I want to** delete the company  
-**So that** the company record can be removed if it should no longer be kept
+**As a** Manager or Administrator  
+**I want to** update the company's information  
+**So that** the business information remains accurate and current.
 
 **Priority:** P1  
-**Independent test:** Delete the existing company and confirm it is no longer kept.
+**Independent test:** Update the company's contact information and verify that the changes are saved.
+
+### US-1.3: Delete Company
+
+**As a** Manager or Administrator  
+**I want to** delete a company record when it has no associated warehouses or historical transactions  
+**So that** an unused company record can be removed safely.
+
+**Priority:** P1  
+**Independent test:** Verify that deletion succeeds for an unused company and is rejected when related business records exist.
 
 ---
 
 ## Functional Requirements
 
-- **FR-001:** The system MUST represent exactly one company.
-- **FR-002:** The system MUST allow the company to be added when no company record exists.
-- **FR-003:** The system MUST allow the company to be edited when the company record exists.
-- **FR-004:** The system MUST allow the company to be deleted when the company record exists.
-- **FR-005:** The system MUST save the company when the information is valid.
-- **FR-006:** The system MUST NOT save the company when the information is invalid.
-- **FR-007:** The system MUST NOT keep more than one company record.
-- **FR-008:** Company attributes are **TBD** because the interview and class notes do not specify Company fields.
-- **FR-009:** Whether Company can be deleted when Warehouses already exist is **TBD**.
-- **FR-010:** The authorized role for adding, editing, or deleting Company is **TBD**.
-- **FR-011:** Behavior when Edit or Delete is attempted and no Company record exists is **TBD**.
+- **FR-001:** The system MUST support at most one company record at a time.
+- **FR-002:** The system MUST allow an authorized Manager or Administrator to create a company when no company record exists.
+- **FR-003:** The system MUST prevent creation of a second company record.
+- **FR-004:** The system MUST assign a unique, system-generated Company ID.
+- **FR-005:** The system MUST store the company's name, address, phone number, and email address.
+- **FR-006:** The system MUST require a nonempty company name.
+- **FR-007:** The system MUST allow authorized Managers and Administrators to update company information.
+- **FR-008:** The system MUST validate required company information before saving.
+- **FR-009:** The system MUST reject invalid information without changing the existing company record.
+- **FR-010:** The system MUST support multiple warehouses associated with the company.
+- **FR-011:** Each warehouse MUST reference the company to which it belongs.
+- **FR-012:** The system MUST allow authorized Managers and Administrators to delete the company only when no associated warehouses or historical transactions exist.
+- **FR-013:** The system MUST prevent company deletion when associated warehouses or historical transactions exist.
+- **FR-014:** The system MUST preserve existing company information when a deletion request is rejected.
+- **FR-015:** The system MUST restrict company creation, modification, and deletion to Managers and Administrators.
+- **FR-016:** Warehouse workers, pickers, receivers, and drivers MUST NOT modify company information.
+- **FR-017:** The system MUST reject attempts to edit or delete a company record that does not exist.
 
 ---
 
 ## Key Entities
 
-- **Company:** The single company represented by the system. Its exact attributes are **TBD**.
-- **Warehouse:** A warehouse belonging to the Company. Warehouse maintenance is handled in Feature 2.
+### Company
+
+Represents the single business operating the Warehouse Management System.
+
+The Company stores identifying and contact information and is associated with multiple warehouses.
+
+### Warehouse
+
+Represents a physical warehouse operated by the company.
+
+Each warehouse belongs to the company. Warehouse maintenance is specified in Feature 2.
+
+### User
+
+Represents an authenticated system user whose assigned role determines whether company information may be maintained.
 
 ---
 
@@ -66,73 +86,160 @@
 
 ### Company
 
-Represents the single company maintained by the system.
-
-**Attributes:**
-- Company ID
-- [TBD: Company attributes are not specified in the interview/class material]
+| Attribute | Type | Description |
+|---|---|---|
+| companyId | Integer | Unique, system-generated identifier; primary key |
+| name | String | Company name; required |
+| address | String | Company business address |
+| phone | String | Company contact telephone number |
+| email | String | Company contact email address |
 
 **Relationships:**
-- A Company can have one or more Warehouses.
-- The effect of existing Warehouses on Company deletion is **TBD**.
-- The system keeps at most one Company record.
+- One Company can have zero or many Warehouses.
+- Each Warehouse belongs to one Company.
+- The system permits at most one Company record.
 
 ### Warehouse
 
-Represents a warehouse associated with the Company.
+| Attribute | Type | Description |
+|---|---|---|
+| warehouseId | Integer | Unique warehouse identifier |
+| companyId | Integer | Foreign key referencing Company |
 
 **Relationships:**
-- A Warehouse belongs to the Company.
-- Warehouse maintenance is handled separately in Feature 2.
+- Each Warehouse belongs to the Company.
+- Additional Warehouse attributes are defined in Feature 2.
+
+### User
+
+| Attribute | Type | Description |
+|---|---|---|
+| userId | Integer | Unique user identifier |
+| role | String | Assigned authorization role |
+
+**Relationships:**
+- A user's role determines whether the user may maintain Company information.
+- User authentication and role management are handled by the system's shared security functionality.
 
 ---
 
 ## Gherkin AC
 
-### US-1.1: Add the Company
+### US-1.1: Add Company
 
-#### AC-1.1.1: Company is saved successfully
-
-**Given** no Company record exists  
-**When** the Company is added with valid information  
-**Then** the Company is saved successfully  
-**And** the system has exactly one Company record
-
-#### AC-1.1.2: Company is not saved when information is invalid
+#### AC-1.1.1: Successfully create Company
 
 **Given** no Company record exists  
-**When** the Company is added with invalid information  
-**Then** the Company is not saved  
-**And** the system still has no Company record
+**And** the user is authenticated as a Manager or Administrator  
+**When** the user enters valid company information  
+**And** saves the record  
+**Then** the system creates the Company  
+**And** assigns a unique Company ID  
+**And** exactly one Company record exists.
 
-#### AC-1.1.3: Second Company is not saved
+#### AC-1.1.2: Reject duplicate Company
 
 **Given** a Company record already exists  
-**When** another Company is added  
-**Then** the second Company is not saved  
-**And** the system still has exactly one Company record
+**And** the user is authenticated as a Manager  
+**When** the user attempts to create another Company  
+**Then** the system rejects the request  
+**And** the existing Company remains unchanged.
 
-### US-1.2: Edit the Company
+#### AC-1.1.3: Reject missing company name
 
-#### AC-1.2.1: Edited Company is saved successfully
+**Given** no Company record exists  
+**And** the user is authenticated as an Administrator  
+**When** the user submits Company information with an empty name  
+**Then** the system rejects the request  
+**And** no Company record is created.
 
-**Given** the Company record exists  
-**When** the Company is edited with valid information  
-**Then** the Company is saved successfully  
-**And** the record shows the updated information  
-**And** the system still has exactly one Company record
+#### AC-1.1.4: Reject unauthorized Company creation
 
-#### AC-1.2.2: Invalid edited Company is not saved
+**Given** no Company record exists  
+**And** the user is authenticated as a Warehouse Worker  
+**When** the user attempts to create a Company  
+**Then** the system denies the operation  
+**And** no Company record is created.
 
-**Given** the Company record exists  
-**When** the Company is edited with invalid information  
-**Then** the changes are not saved  
-**And** the existing Company information remains unchanged
+### US-1.2: Edit Company
 
-### US-1.3: Delete the Company
+#### AC-1.2.1: Successfully update Company
 
-#### AC-1.3.1: Company is deleted successfully
+**Given** a Company record exists  
+**And** the user is authenticated as a Manager  
+**When** the user updates the company's address  
+**And** saves the changes  
+**Then** the system stores the updated address  
+**And** the Company ID remains unchanged.
 
-**Given** the Company record exists  
-**When** the Company is deleted  
-**Then** the Company is no longer kept
+#### AC-1.2.2: Reject invalid Company updates
+
+**Given** a Company record exists  
+**And** the user is authenticated as an Administrator  
+**When** the user removes the required company name  
+**And** attempts to save the changes  
+**Then** the system rejects the update  
+**And** the previously stored information remains unchanged.
+
+#### AC-1.2.3: Reject unauthorized Company updates
+
+**Given** a Company record exists  
+**And** the user is authenticated as a Driver  
+**When** the user attempts to modify Company information  
+**Then** the system denies the request  
+**And** the Company record remains unchanged.
+
+#### AC-1.2.4: Reject editing a nonexistent Company
+
+**Given** no Company record exists  
+**And** the user is authenticated as a Manager  
+**When** the user attempts to update Company information  
+**Then** the system rejects the request  
+**And** no Company record is created.
+
+### US-1.3: Delete Company
+
+#### AC-1.3.1: Successfully delete an unused Company
+
+**Given** a Company record exists  
+**And** no Warehouses are associated with it  
+**And** no historical transactions reference it  
+**And** the user is authenticated as an Administrator  
+**When** the user requests Company deletion  
+**Then** the system deletes the Company record  
+**And** no Company record remains.
+
+#### AC-1.3.2: Prevent deletion when Warehouses exist
+
+**Given** a Company record exists  
+**And** one or more Warehouses belong to it  
+**And** the user is authenticated as a Manager  
+**When** the user requests Company deletion  
+**Then** the system rejects the deletion  
+**And** the Company remains stored  
+**And** its associated Warehouses remain unchanged.
+
+#### AC-1.3.3: Prevent deletion when historical transactions exist
+
+**Given** a Company record exists  
+**And** historical business transactions reference it  
+**And** the user is authenticated as an Administrator  
+**When** the user requests Company deletion  
+**Then** the system rejects the deletion  
+**And** the Company and its historical records remain unchanged.
+
+#### AC-1.3.4: Reject unauthorized Company deletion
+
+**Given** a Company record exists  
+**And** the user is authenticated as a Warehouse Worker  
+**When** the user attempts to delete the Company  
+**Then** the system denies the request  
+**And** the Company remains unchanged.
+
+#### AC-1.3.5: Reject deletion when Company does not exist
+
+**Given** no Company record exists  
+**And** the user is authenticated as an Administrator  
+**When** the user requests Company deletion  
+**Then** the system rejects the request  
+**And** no Company record is changed.
