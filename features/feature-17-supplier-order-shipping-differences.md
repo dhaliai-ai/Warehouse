@@ -5,7 +5,7 @@
 **Branch pattern:** `feature/17-supplier-order-differences`  
 **Status:** Draft - Proposed Rules Pending Approval  
 **Created:** 2026-09-28  
-**Input:** The Warehouse Management System provides authorized Managers with a report identifying Supplier Order Lines where the total Quantity Received differs from the Quantity Ordered. The system compares ordered and received quantities in individual units, identifies shortages and overages, displays Supplier and Item information, and preserves receiving discrepancies for review. The report distinguishes finalized supplier delivery differences from orders that are still awaiting additional receipts.
+**Input:** The Warehouse Management System provides authorized Managers with a report identifying Supplier Order Lines where the total Quantity Received differs from the Quantity Ordered. The system compares ordered and received quantities in individual units, identifies shortages and overages, displays Supplier and Item information, and preserves receiving discrepancies for review. The report distinguishes finalized supplier delivery differences from orders that are still awaiting additional receipts. It uses the original Units Per Case recorded on the submitted Supplier Order and the actual quantities recorded through completed receiving sessions.
 
 ---
 
@@ -18,16 +18,16 @@
 **So that** I can identify Suppliers that delivered incorrect quantities.
 
 **Priority:** P1  
-**Independent test:** Generate a report containing completed Supplier Orders with shortages and overages and verify that the differing order lines are displayed.
+**Independent test:** Generate a report containing finalized Supplier Orders with shortages and overages and verify that the differing order lines are displayed.
 
 ### US-17.2: Review Supplier Difference Details
 
 **As a** Warehouse Manager  
-**I want to** review the Supplier, Purchase Order, Individual Item, Quantity Ordered, and Quantity Received  
-**So that** I can understand each supplier delivery discrepancy.
+**I want to** review the Supplier, Purchase Order, Individual Item, Quantity Ordered, Quantity Received, and confirmed receiving discrepancies  
+**So that** I can understand each supplier delivery discrepancy and how it was resolved.
 
 **Priority:** P1  
-**Independent test:** Review a reported difference and verify that the Supplier, PO Number, Item, ordered quantity, received quantity, and difference are displayed.
+**Independent test:** Review a reported difference and verify that the Supplier, PO Number, Item, ordered quantity, received quantity, difference, and available discrepancy approval information are displayed.
 
 ### US-17.3: Distinguish Shortages from Overages
 
@@ -36,7 +36,7 @@
 **So that** I can identify the type and size of each discrepancy.
 
 **Priority:** P1  
-**Independent test:** Create one shortage and one overage and verify that the report identifies them separately.
+**Independent test:** Create one finalized shortage and one finalized overage and verify that the report identifies them separately.
 
 ### US-17.4: Filter Supplier Difference Report
 
@@ -69,15 +69,15 @@
 - **FR-007:** The report MUST display Quantity Ordered and Quantity Received for each reported Item.
 - **FR-008:** The system MUST preserve Quantity Ordered separately from Quantity Received.
 - **FR-009:** The system MUST convert ordered case quantities into individual units before comparing them with received quantities.
-- **FR-010:** Ordered Units MUST equal Quantity Ordered Cases multiplied by the Units Per Case recorded on the Supplier Order Line.
-- **FR-011:** The system MUST use the Units Per Case snapshot stored when the Supplier Order was created.
+- **FR-010:** Ordered Units MUST equal Quantity Ordered Cases multiplied by the Units Per Case recorded on the submitted Supplier Order Line.
+- **FR-011:** The system MUST use the Units Per Case snapshot preserved when the Supplier Order was submitted. Subsequent changes to an Item's current packaging configuration MUST NOT change the original Ordered Units used for reporting.
 - **FR-012:** The system MUST calculate cumulative Quantity Received from completed Receiving Record Lines associated with the Supplier Order Line.
 - **FR-013:** The system MUST count received quantities across multiple completed receiving sessions for the same Supplier Order.
 - **FR-014:** The system MUST NOT count the same Receiving Record Line more than once.
 - **FR-015:** The system MUST identify a shortage when cumulative Quantity Received is less than Ordered Units on a finalized Supplier Order.
 - **FR-016:** The system MUST identify an overage when cumulative Quantity Received is greater than Ordered Units.
 - **FR-017:** The system MUST calculate Quantity Difference as Quantity Received minus Ordered Units.
-- **FR-018:** The report MUST identify negative differences as Shortages.
+- **FR-018:** The report MUST identify negative differences as Shortages for finalized Supplier Orders.
 - **FR-019:** The report MUST identify positive differences as Overages.
 - **FR-020:** Supplier Order Lines where Quantity Received equals Ordered Units MUST NOT appear as quantity differences.
 - **FR-021:** The system MUST preserve both shortage and overage information.
@@ -88,11 +88,11 @@
 - **FR-026:** The default Supplier Difference Report MUST include finalized Supplier Orders in Received status.
 - **FR-027:** The default report MUST exclude Supplier Orders in Draft, Submitted, Partially Received, or Canceled status from finalized shortage results.
 - **FR-028:** The system MUST allow a Manager to optionally include provisional differences from Supplier Orders in Submitted or Partially Received status.
-- **FR-029:** Provisional differences MUST be clearly identified as Pending Receipt rather than confirmed supplier shortages.
+- **FR-029:** Provisional negative differences MUST be clearly identified as Pending Receipt rather than confirmed supplier shortages.
 - **FR-030:** The system MUST preserve overages identified during completed receiving sessions even if other lines on the Supplier Order remain incomplete.
 - **FR-031:** The report MUST identify the date associated with each finalized Supplier Order difference.
 - **FR-032:** For finalized Supplier Orders, the report date MUST be the date the Supplier Order was closed as Received.
-- **FR-033:** For provisional differences, the report MUST identify the most recent completed receiving date when one exists.
+- **FR-033:** For provisional differences, the report MUST identify the most recent completed receiving date when one exists. If no receiving session has been completed, the report MUST clearly indicate that no completed receiving date is available.
 - **FR-034:** The system MUST allow the report to be filtered by Supplier.
 - **FR-035:** The system MUST allow the report to be filtered by Individual Item.
 - **FR-036:** The system MUST allow the report to be filtered by date range.
@@ -100,7 +100,7 @@
 - **FR-038:** The system MUST allow a Manager to generate the report without selecting a specific Supplier or Item.
 - **FR-039:** The system MUST validate that the report start date is not later than the end date.
 - **FR-040:** The system MUST display an empty result when no Supplier Order Lines match the selected criteria.
-- **FR-041:** The system MUST NOT report matching ordered and received quantities as discrepancies.
+- **FR-041:** The system MUST NOT report matching ordered and received quantities as quantity discrepancies.
 - **FR-042:** The system MUST preserve original ordered quantities even when receiving differences are confirmed.
 - **FR-043:** The system MUST use receiving information recorded in Feature 10.
 - **FR-044:** The system MUST NOT use Quantity Put Away as a substitute for Quantity Received.
@@ -112,9 +112,19 @@
 - **FR-050:** The system MUST preserve Supplier and Item identification even when those records are later deactivated.
 - **FR-051:** The system MUST identify when required historical receiving information is unavailable or incomplete.
 - **FR-052:** The system MUST NOT present incomplete historical receiving information as a confirmed zero discrepancy.
-- **FR-053:** The system MUST preserve the relationships between Suppliers, Supplier Orders, Supplier Order Lines, Receiving Records, Receiving Record Lines, and Individual Items.
+- **FR-053:** The system MUST preserve the relationships between Suppliers, Supplier Orders, Supplier Order Lines, Receiving Records, Receiving Record Lines, Receiving Discrepancies, and Individual Items.
 - **FR-054:** The system MUST support sorting report results by Supplier, PO Number, Item Number, report date, or difference magnitude.
 - **FR-055:** The report MUST display the units used for each quantity so that ordered cases are not confused with received individual units.
+- **FR-056:** The system MUST associate finalized Supplier Order differences with the Receiving Discrepancy records maintained in Feature 10 when such records exist.
+- **FR-057:** For confirmed receiving discrepancies, the report MUST provide access to the discrepancy type, quantity difference, approving Manager or Supervisor, approval date and time, and recorded notes.
+- **FR-058:** The system MUST preserve the distinction between a discrepancy reported by a Receiving Clerk and one approved by an authorized Manager or Supervisor.
+- **FR-059:** The system MUST identify the User and date and time associated with final Supplier Order closure when the order is closed with shortages or overages.
+- **FR-060:** The system MUST NOT treat a Supplier Order as finalized merely because an individual Receiving Record has been completed.
+- **FR-061:** A Supplier Order closed as Received with an approved shortage MUST appear in the finalized Supplier Difference Report even when its Quantity Received is less than Quantity Ordered.
+- **FR-062:** The system MUST preserve the actual quantity received when a Case UPC represents a different number of units from the Units Per Case recorded on the submitted Supplier Order Line.
+- **FR-063:** The system MUST calculate report differences using the original Ordered Units and actual Received Units without rewriting either value to make the quantities match.
+- **FR-064:** The system MUST distinguish quantity discrepancies from packaging mismatches. A packaging mismatch MUST remain available in receiving details even when the actual received units equal Ordered Units.
+- **FR-065:** The system MUST identify finalized Supplier Order differences using the Supplier Order status and closure information maintained by Features 9 and 10.
 
 ---
 
@@ -123,6 +133,8 @@
 ### Supplier Difference Report
 
 Represents a read-only reporting view of differences between quantities ordered from Suppliers and quantities received by the warehouse.
+
+The report distinguishes finalized shortages and overages from provisional differences on orders awaiting further deliveries.
 
 ### Supplier
 
@@ -136,9 +148,11 @@ Represents a purchase order placed with a Supplier.
 
 Supplier Order creation is defined in Feature 9.
 
+Its status and closure information determine whether a quantity difference is finalized or provisional.
+
 ### Supplier Order Line
 
-Represents an Individual Item ordered from a Supplier, including ordered case quantity, Units Per Case, and cumulative received units.
+Represents an Individual Item ordered from a Supplier, including ordered case quantity, original Units Per Case, and cumulative received units.
 
 ### Receiving Record
 
@@ -146,9 +160,19 @@ Represents a receiving session for a Supplier Order.
 
 Receiving is defined in Feature 10.
 
+Completion of a Receiving Record does not necessarily finalize the associated Supplier Order.
+
 ### Receiving Record Line
 
 Represents the quantity of an Individual Item recorded during a receiving session.
+
+Only completed Receiving Record Lines contribute to cumulative Quantity Received.
+
+### Receiving Discrepancy
+
+Represents a recorded receiving difference or packaging issue, including the discrepancy type, quantity difference, approval information, and notes.
+
+Receiving discrepancy approval is defined in Feature 10.
 
 ### Individual Item
 
@@ -157,6 +181,8 @@ Represents a product purchased from a Supplier.
 ### User
 
 Represents an authorized Manager or reporting employee.
+
+Managers and Supervisors may also be associated with receiving discrepancy approval and Supplier Order closure.
 
 ---
 
@@ -186,18 +212,25 @@ The Supplier Difference Report is a generated reporting view rather than a separ
 | Item Number | Individual Item SKU |
 | Item Description | Description of the Item |
 | Quantity Ordered Cases | Original quantity ordered in cases |
-| Units Per Case | Units in each ordered case |
-| Quantity Ordered Units | Ordered cases multiplied by Units Per Case |
-| Quantity Received Units | Cumulative quantity received |
+| Units Per Case | Units per case preserved on the submitted Supplier Order |
+| Quantity Ordered Units | Ordered cases multiplied by original Units Per Case |
+| Quantity Received Units | Cumulative quantity received from completed Receiving Records |
 | Difference Units | Received Units minus Ordered Units |
 | Difference Type | Shortage, Overage, or Pending Receipt |
-| Supplier Order Status | Current order status |
-| Report Date | Finalization date or latest receiving date |
+| Supplier Order Status | Current Supplier Order status |
+| Report Date | Finalization date or latest completed receiving date |
+| Receiving Discrepancy | Associated confirmed discrepancy information, when available |
+| Approved By | Manager or Supervisor who approved the discrepancy, when applicable |
+| Approved At | Date and time of discrepancy approval, when applicable |
+| Closed By | User who authorized final Supplier Order closure, when applicable |
+| Closed At | Date and time of final Supplier Order closure, when applicable |
 
 **Relationships:**
-- The report uses Supplier Order Lines and Receiving Record Lines.
+- The report uses Supplier Order Lines and completed Receiving Record Lines.
 - The report identifies Suppliers and Individual Items associated with differences.
 - Each report row represents one Supplier Order Line with a qualifying quantity difference.
+- Report rows may reference associated Receiving Discrepancy records.
+- The report does not create or modify Supplier Orders, Receiving Records, or Receiving Discrepancies.
 
 ### Supplier
 
@@ -219,15 +252,24 @@ The Supplier Difference Report is a generated reporting view rather than a separ
 | supplierOrderId | Integer | Unique Supplier Order identifier |
 | poNumber | String | Unique Purchase Order Number |
 | supplierId | Integer | Foreign key referencing Supplier |
+| warehouseId | Integer | Destination Warehouse recorded on the Supplier Order |
 | status | String | Draft, Submitted, Partially Received, Received, or Canceled |
 | createdAt | DateTime | Date and time the order was created |
 | submittedAt | DateTime | Date and time the order was submitted |
 | closedAt | DateTime | Date and time receiving was finalized |
+| closedBy | Integer | User who authorized final closure, when applicable |
 
 **Relationships:**
 - Each Supplier Order belongs to one Supplier.
+- Each Supplier Order is associated with one destination Warehouse.
 - Each Supplier Order contains one or more Supplier Order Lines.
 - Each Supplier Order may have multiple Receiving Records.
+- A finalized Supplier Order may contain confirmed shortages or overages.
+
+**Constraints:**
+- The Supplier Order must be in Received status to appear in the default finalized report.
+- Completing an individual Receiving Record does not automatically finalize the Supplier Order.
+- Original ordered quantities remain preserved after submission.
 
 ### Supplier Order Line
 
@@ -237,7 +279,7 @@ The Supplier Difference Report is a generated reporting view rather than a separ
 | supplierOrderId | Integer | Foreign key referencing Supplier Order |
 | itemId | Integer | Foreign key referencing Individual Item |
 | quantityOrderedCases | Integer | Original ordered quantity in cases |
-| unitsPerCase | Integer | Units Per Case snapshot |
+| unitsPerCase | Integer | Units Per Case snapshot preserved at submission |
 | quantityReceivedUnits | Integer | Cumulative received quantity in individual units |
 
 **Relationships:**
@@ -256,7 +298,8 @@ The Supplier Difference Report is a generated reporting view rather than a separ
 - quantityOrderedCases must be positive.
 - unitsPerCase must be positive.
 - quantityReceivedUnits cannot be negative.
-- Original ordered quantities must remain preserved after submission.
+- Original ordered quantities and Units Per Case remain preserved after submission.
+- A completed Receiving Record Line must not be counted more than once.
 
 ### Receiving Record
 
@@ -265,6 +308,8 @@ The Supplier Difference Report is a generated reporting view rather than a separ
 | receivingRecordId | Integer | Unique Receiving Record identifier |
 | supplierOrderId | Integer | Foreign key referencing Supplier Order |
 | warehouseId | Integer | Foreign key referencing Warehouse |
+| receivingDoorId | Integer | Receiving Door where the shipment was unloaded |
+| receivedBy | Integer | User who performed receiving |
 | completedAt | DateTime | Date and time receiving session completed |
 | status | String | In Progress or Completed |
 
@@ -272,6 +317,11 @@ The Supplier Difference Report is a generated reporting view rather than a separ
 - Each Receiving Record belongs to one Supplier Order.
 - Each Receiving Record contains one or more Receiving Record Lines.
 - A Supplier Order may have multiple Receiving Records.
+- A Receiving Record may have Receiving Discrepancies.
+
+**Constraints:**
+- Only completed Receiving Record Lines contribute to report totals.
+- A Receiving Record may be Completed while its Supplier Order remains Partially Received.
 
 ### Receiving Record Line
 
@@ -281,7 +331,7 @@ The Supplier Difference Report is a generated reporting view rather than a separ
 | receivingRecordId | Integer | Foreign key referencing Receiving Record |
 | supplierOrderLineId | Integer | Foreign key referencing Supplier Order Line |
 | itemId | Integer | Foreign key referencing Individual Item |
-| quantityReceivedUnits | Integer | Quantity received in individual units |
+| quantityReceivedUnits | Integer | Actual quantity received in individual units |
 
 **Relationships:**
 - Each Receiving Record Line belongs to one Receiving Record.
@@ -291,6 +341,32 @@ The Supplier Difference Report is a generated reporting view rather than a separ
 **Constraints:**
 - quantityReceivedUnits cannot be negative.
 - A Receiving Record Line must not be counted more than once in report totals.
+- The actual received quantity must be preserved when packaging differs from the original order.
+
+### Receiving Discrepancy
+
+| Attribute | Type | Description |
+|---|---|---|
+| discrepancyId | Integer | Unique Receiving Discrepancy identifier |
+| receivingRecordId | Integer | Foreign key referencing Receiving Record |
+| supplierOrderLineId | Integer | Foreign key referencing Supplier Order Line, when applicable |
+| quantityDifferenceUnits | Integer | Difference associated with the recorded discrepancy |
+| discrepancyType | String | Shortage, Overage, Unexpected Item, or Packaging Mismatch |
+| confirmedBy | Integer | Manager or Supervisor who approved the discrepancy |
+| confirmedAt | DateTime | Date and time of approval |
+| notes | String | Explanation or resolution of discrepancy |
+
+**Relationships:**
+- Each Receiving Discrepancy belongs to a Receiving Record.
+- Each Receiving Discrepancy may reference a Supplier Order Line.
+- Each confirmed discrepancy identifies the approving User.
+- Receiving Discrepancies are created and approved through Feature 10.
+- The Supplier Difference Report references these records without modifying them.
+
+**Constraints:**
+- Unapproved discrepancies must not be presented as approved.
+- A packaging mismatch does not automatically imply a quantity shortage or overage.
+- A Receiving Discrepancy must not replace the original ordered or actual received quantities.
 
 ### Individual Item
 
@@ -313,6 +389,8 @@ The Supplier Difference Report is a generated reporting view rather than a separ
 
 **Relationships:**
 - Authorized Managers generate and review Supplier Difference Reports.
+- Authorized Managers or Supervisors approve receiving discrepancies.
+- Authorized Managers or Supervisors may authorize final Supplier Order closure.
 
 ---
 
@@ -378,7 +456,8 @@ The Supplier Difference Report is a generated reporting view rather than a separ
 **When** the Manager reviews the reported difference  
 **Then** the report identifies the Supplier and PO Number  
 **And** identifies the Individual Item  
-**And** displays Quantity Ordered Cases, Ordered Units, Received Units, and Difference Units.
+**And** displays Quantity Ordered Cases, Ordered Units, Received Units, and Difference Units  
+**And** provides access to associated confirmed receiving discrepancy details when available.
 
 #### AC-17.2.2: Report multiple differing Items
 
@@ -414,6 +493,30 @@ The Supplier Difference Report is a generated reporting view rather than a separ
 **Then** the system compares 100 Ordered Units with 100 Received Units  
 **And** does not report a supplier delivery shortage.
 
+#### AC-17.2.6: Display discrepancy approval information
+
+**Given** a finalized Supplier Order contains a confirmed shortage of 12 units  
+**And** an authorized Supervisor approved the shortage during receiving  
+**And** the Receiving Discrepancy contains the approving User and approval date and time  
+**When** the Manager reviews the reported shortage  
+**Then** the system displays the Shortage of 12 units  
+**And** provides access to the approving Supervisor  
+**And** provides access to the approval date and time  
+**And** displays the recorded discrepancy notes when available.
+
+#### AC-17.2.7: Preserve historical Units Per Case
+
+**Given** a submitted Supplier Order Line contains 5 cases ordered  
+**And** the original Units Per Case is 12  
+**And** the Item's current Units Per Case is later changed to 10  
+**And** completed receiving sessions recorded 50 units received  
+**And** the Supplier Order has been finalized  
+**When** the Manager generates the Supplier Difference Report  
+**Then** the system calculates 60 Ordered Units using the original Units Per Case  
+**And** displays 50 Received Units  
+**And** identifies a Shortage of 10 units  
+**And** does not recalculate the original order using the Item's current packaging configuration.
+
 ### US-17.3: Distinguish Shortages from Overages
 
 #### AC-17.3.1: Identify shortage
@@ -440,6 +543,35 @@ The Supplier Difference Report is a generated reporting view rather than a separ
 **Then** the system preserves 100 Ordered Units  
 **And** records 90 Received Units  
 **And** reports a shortage of 10 units.
+
+#### AC-17.3.4: Finalize Supplier Order with an approved shortage
+
+**Given** a Supplier Order contains 120 Ordered Units  
+**And** completed receiving sessions recorded only 80 Received Units  
+**And** a Receiving Clerk reported the shortage  
+**And** an authorized Manager approved the shortage  
+**And** the Manager confirmed that no further deliveries are expected  
+**When** the Manager closes the Supplier Order as Received  
+**Then** the system preserves 120 Ordered Units  
+**And** preserves 80 actual Received Units  
+**And** records the closing User and closing date and time  
+**And** the finalized Supplier Difference Report identifies a Shortage of 40 units  
+**And** provides access to the confirmed discrepancy approval information.
+
+#### AC-17.3.5: Distinguish packaging mismatch from quantity difference
+
+**Given** a submitted Supplier Order Line contains 5 cases ordered  
+**And** the original Units Per Case is 12  
+**And** the delivered Case UPC represents 10 units per case  
+**And** the receiving worker scans 6 delivered cases  
+**And** completed receiving records contain 60 actual received units  
+**And** the packaging mismatch has been recorded and approved  
+**And** the Supplier Order has been finalized  
+**When** the Manager generates the Supplier Difference Report  
+**Then** the system calculates 60 Ordered Units  
+**And** calculates 60 Received Units  
+**And** does not report a quantity shortage or overage for the line  
+**And** preserves the packaging mismatch in the associated receiving information.
 
 ### US-17.4: Filter Supplier Difference Report
 
@@ -503,9 +635,11 @@ The Supplier Difference Report is a generated reporting view rather than a separ
 
 **Given** a Supplier Order contains 120 Ordered Units  
 **And** only 80 units have been received  
-**And** the Supplier Order is finalized as Received with a confirmed shortage  
+**And** an authorized Manager or Supervisor has approved the shortage  
+**And** the Supplier Order is finalized as Received with the closing User and date and time recorded  
 **When** the Manager generates the default Supplier Difference Report  
-**Then** the system reports a finalized Shortage of 40 units.
+**Then** the system reports a finalized Shortage of 40 units  
+**And** provides access to the recorded approval and closure information.
 
 #### AC-17.5.4: Reject unauthorized report access
 
@@ -513,3 +647,34 @@ The Supplier Difference Report is a generated reporting view rather than a separ
 **When** the User attempts to generate the Supplier Difference Report  
 **Then** the system denies access  
 **And** does not display restricted Supplier information.
+
+#### AC-17.5.5: Do not finalize an order after one receiving session
+
+**Given** a Supplier Order contains 100 Ordered Units  
+**And** a completed Receiving Record contains 60 Received Units  
+**And** additional deliveries are expected  
+**And** the Supplier Order remains Partially Received  
+**When** the Manager generates the default finalized Supplier Difference Report  
+**Then** the system excludes the outstanding 40 units from finalized shortage results  
+**And** does not treat completion of the Receiving Record as final Supplier Order closure.
+
+#### AC-17.5.6: Exclude an uncompleted receiving session
+
+**Given** a Supplier Order Line contains 100 Ordered Units  
+**And** a completed Receiving Record contains 40 units  
+**And** another Receiving Record is In Progress with 30 scanned units  
+**When** the Manager includes provisional differences  
+**Then** the system calculates 40 cumulative Received Units from completed sessions  
+**And** does not count the 30 units in the In Progress session  
+**And** identifies 60 units as Pending Receipt.
+
+#### AC-17.5.7: Preserve overage on a partially received order
+
+**Given** a Supplier Order contains Item A and Item B  
+**And** Item A has 50 Ordered Units and 60 Received Units  
+**And** Item B has 100 Ordered Units and 40 Received Units  
+**And** the Supplier Order remains Partially Received  
+**When** the Manager includes provisional differences  
+**Then** the system identifies Item A as having a provisional Overage of 10 units  
+**And** identifies Item B as having 60 units Pending Receipt  
+**And** does not report Item B's outstanding quantity as a finalized shortage.

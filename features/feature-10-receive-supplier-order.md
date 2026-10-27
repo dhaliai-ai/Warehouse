@@ -3,7 +3,7 @@
 
 **Feature ID:** 10  
 **Branch pattern:** `feature/10-receive-supplier-order`  
-**Status:** Draft - Proposed Rules Pending Approval  
+**Status:** Draft - Professor Feedback Incorporated; Clarifications Pending  
 **Created:** 2026-09-28  
 **Input:** The Warehouse Management System assists receiving workers in receiving shipments from Suppliers. The worker identifies the Supplier Order using the PO Number on the bill of lading, records the receiving door, scans delivered cases or individual items, records actual received quantities, compares those quantities with the original order, investigates discrepancies, and completes receiving. Received products remain at the receiving location until they are processed through the separate Put Away workflow in Feature 11.
 
@@ -67,7 +67,7 @@
 - **FR-005:** The system MUST prevent receiving against Draft or Canceled Supplier Orders.
 - **FR-006:** The system MUST allow receiving against Submitted or Partially Received Supplier Orders.
 - **FR-007:** The system MUST preserve the original Quantity Ordered when receiving is performed.
-- **FR-008:** The system MUST allow the worker to identify the Warehouse where the shipment arrived.
+- **FR-008:** The system MUST identify the destination Warehouse recorded on the Supplier Order and display it during receiving. The receiving worker MUST confirm that the shipment arrived at that Warehouse. If the actual receiving Warehouse differs from the Supplier Order's destination Warehouse, the system MUST flag the mismatch for authorized review and MUST NOT silently accept the change. [NEEDS CLARIFICATION: Confirm whether authorized Managers or Supervisors may approve receiving at a different Warehouse.]
 - **FR-009:** The system MUST allow the worker to select an existing Receiving Door within that Warehouse.
 - **FR-010:** The system MUST associate the selected Receiving Door with the Receiving Record.
 - **FR-011:** The system MUST require a valid Receiving Door before a receiving session can be completed.
@@ -75,7 +75,7 @@
 - **FR-013:** The system MUST allow a receiving worker to scan Case UPCs when case-level barcodes are configured for an Item.
 - **FR-014:** The system MUST identify the Individual Item associated with a scanned UPC.
 - **FR-015:** The system MUST determine whether the scanned barcode represents an individual unit or a case.
-- **FR-016:** When a Case UPC is scanned, the system MUST convert the case quantity into individual units using the configured units-per-case value for that barcode.
+- **FR-016:** When a Case UPC is scanned, the system MUST convert the scanned case quantity into individual units using the units represented by that barcode. The system MUST compare this quantity with the Units Per Case preserved on the submitted Supplier Order Line. If the values differ, the system MUST flag the packaging difference for review and preserve the actual quantity received without changing the original Quantity Ordered.
 - **FR-017:** When an Individual Item UPC is scanned, the system MUST record the corresponding quantity in individual units.
 - **FR-018:** The system MUST support recording multiple scans of the same Item during one receiving session.
 - **FR-019:** The system MUST maintain a running Quantity Received for each Supplier Order Line.
@@ -91,7 +91,7 @@
 - **FR-029:** The system MUST identify ordered items for which no units have been received.
 - **FR-030:** The system MUST allow the receiving worker to continue scanning additional items or cases while investigating discrepancies.
 - **FR-031:** The system MUST recalculate receiving differences when additional quantities are recorded.
-- **FR-032:** The system MUST require unresolved quantity discrepancies to be reviewed and confirmed before completing a receiving session.
+- **FR-032:** The system MUST identify and record quantity discrepancies during receiving. Receiving workers MUST be able to report and acknowledge discrepancies, but final approval of unresolved shortages, overages, or unexpected items MUST be performed by an authorized Manager or Supervisor before the receiving session is completed. The system MUST record the approving User, approval date and time, and discrepancy details.
 - **FR-033:** The system MUST preserve the actual received quantity even when it differs from Quantity Ordered.
 - **FR-034:** The system MUST record confirmed discrepancies for supplier performance reporting in Feature 17.
 - **FR-035:** The system MUST maintain a Receiving Record for each receiving session.
@@ -100,7 +100,7 @@
 - **FR-038:** The system MUST support multiple receiving sessions for a Supplier Order that has not been fully received.
 - **FR-039:** The system MUST update the cumulative Quantity Received for each Supplier Order Line after a receiving session is completed.
 - **FR-040:** The system MUST set a Supplier Order to Partially Received when receiving has occurred but at least one ordered quantity remains outstanding and further receiving is expected.
-- **FR-041:** The system MUST set a Supplier Order to Received when the receiving process is closed and no further shipments are expected for that order.
+- **FR-041:** The system MUST distinguish completion of an individual Receiving Record from final closure of the Supplier Order. Completing a Receiving Record MUST NOT automatically close the Supplier Order when additional deliveries are expected. The system MUST set the Supplier Order status to Received when all ordered quantities have been received or when an authorized Manager or Supervisor confirms that no further deliveries are expected. If the order is closed with shortages or overages, the system MUST preserve the actual received quantities, confirmed discrepancies, closing User, and closing date and time.
 - **FR-042:** The system MUST preserve confirmed shortages or overages when an order is closed as Received.
 - **FR-043:** The system MUST prevent completed receiving sessions from being silently overwritten.
 - **FR-044:** The system MUST make completed receiving quantities available to the Put Away process.
@@ -123,13 +123,13 @@
 
 Represents an existing purchase order placed with a Supplier.
 
-The Supplier Order provides the original PO Number, Supplier, ordered Items, and ordered quantities.
+The Supplier Order provides the original PO Number, Supplier, destination Warehouse, ordered Items, and ordered quantities.
 
 ### Supplier Order Line
 
 Represents an Individual Item ordered from a Supplier.
 
-Each line maintains Quantity Ordered and cumulative Quantity Received separately.
+Each line maintains Quantity Ordered, original Units Per Case, and cumulative Quantity Received separately.
 
 ### Receiving Record
 
@@ -163,11 +163,11 @@ Represents a designated warehouse location where an incoming shipment is unloade
 
 ### Receiving Discrepancy
 
-Represents a confirmed difference between ordered and received quantities.
+Represents a confirmed difference between ordered and received quantities, including approval information.
 
 ### User
 
-Represents an employee authorized to receive Supplier Orders or review discrepancies.
+Represents an employee authorized to receive Supplier Orders or review and approve discrepancies.
 
 ---
 
@@ -180,17 +180,22 @@ Represents an employee authorized to receive Supplier Orders or review discrepan
 | supplierOrderId | Integer | Unique Supplier Order identifier |
 | poNumber | String | Unique purchase order number |
 | supplierId | Integer | Foreign key referencing Supplier |
+| warehouseId | Integer | Destination Warehouse recorded on the Supplier Order |
 | status | String | Draft, Submitted, Partially Received, Received, or Canceled |
+| closedAt | DateTime | Date and time receiving was finally closed |
+| closedBy | Integer | User who authorized final closure |
 
 **Relationships:**
 - Each Supplier Order belongs to one Supplier.
-- Each Supplier Order contains one or more Supplier Order Lines.
+- Each Supplier Order is associated with one destination Warehouse.
+- Each Supplier Order contains one or more Supplier Order Lines before submission.
 - One Supplier Order may have multiple Receiving Records.
 
 **Constraints:**
 - PO Number must be unique.
 - Only Submitted and Partially Received orders may begin a new receiving session.
 - Original ordered quantities must remain preserved.
+- A Supplier Order cannot be finally closed with unresolved discrepancies.
 
 ### Supplier Order Line
 
@@ -200,13 +205,13 @@ Represents an employee authorized to receive Supplier Orders or review discrepan
 | supplierOrderId | Integer | Foreign key referencing Supplier Order |
 | itemId | Integer | Foreign key referencing Individual Item |
 | quantityOrderedCases | Integer | Original quantity ordered in cases |
-| unitsPerCase | Integer | Units per case recorded on the order |
+| unitsPerCase | Integer | Units per case preserved on the submitted order |
 | quantityReceivedUnits | Integer | Cumulative quantity received in individual units |
 
 **Derived Values:**
 - Ordered Units = quantityOrderedCases × unitsPerCase.
 - Quantity Difference = quantityReceivedUnits - Ordered Units.
-- Outstanding Units = maximum of zero and (Ordered Units - quantityReceivedUnits).
+- Outstanding Units = max(0, Ordered Units - quantityReceivedUnits).
 
 **Relationships:**
 - Each Supplier Order Line belongs to one Supplier Order.
@@ -219,13 +224,13 @@ Represents an employee authorized to receive Supplier Orders or review discrepan
 |---|---|---|
 | receivingRecordId | Integer | Unique Receiving Record identifier |
 | supplierOrderId | Integer | Foreign key referencing Supplier Order |
-| warehouseId | Integer | Foreign key referencing Warehouse |
+| warehouseId | Integer | Warehouse where shipment was received |
 | receivingDoorId | Integer | Foreign key referencing Receiving Door |
 | receivedBy | Integer | User who performed receiving |
 | startedAt | DateTime | Date and time receiving started |
 | completedAt | DateTime | Date and time receiving completed |
 | status | String | In Progress or Completed |
-| discrepanciesConfirmed | Boolean | Indicates whether identified discrepancies were reviewed |
+| discrepanciesConfirmed | Boolean | Indicates whether identified discrepancies were approved |
 
 **Relationships:**
 - Each Receiving Record belongs to one Supplier Order.
@@ -237,6 +242,7 @@ Represents an employee authorized to receive Supplier Orders or review discrepan
 **Constraints:**
 - receivingDoorId must reference a Receiving Door in the selected Warehouse.
 - A Receiving Record cannot be completed without a valid Receiving Door.
+- A Receiving Record with unresolved discrepancies cannot be completed without Manager or Supervisor approval.
 - A completed Receiving Record cannot be completed again.
 
 ### Receiving Record Line
@@ -265,7 +271,7 @@ Represents an employee authorized to receive Supplier Orders or review discrepan
 | itemId | Integer | Unique Individual Item identifier |
 | itemNumber | String | Unique Item Number or SKU |
 | description | String | Item description |
-| unitsPerCase | Integer | Number of individual units per case |
+| unitsPerCase | Integer | Current number of individual units per case |
 
 **Relationships:**
 - One Individual Item can appear on multiple Supplier Order Lines.
@@ -327,12 +333,15 @@ Represents an employee authorized to receive Supplier Orders or review discrepan
 | receivingRecordId | Integer | Foreign key referencing Receiving Record |
 | supplierOrderLineId | Integer | Foreign key referencing Supplier Order Line |
 | quantityDifferenceUnits | Integer | Difference between received and expected quantities |
-| confirmedBy | Integer | User who confirmed the discrepancy |
-| confirmedAt | DateTime | Date and time of confirmation |
+| confirmedBy | Integer | Manager or Supervisor who approved the discrepancy |
+| confirmedAt | DateTime | Date and time of approval |
+| discrepancyType | String | Shortage, Overage, Unexpected Item, or Packaging Mismatch |
+| notes | String | Explanation or resolution of discrepancy |
 
 **Relationships:**
 - Each Receiving Discrepancy belongs to a Receiving Record.
-- Each Discrepancy references a Supplier Order Line.
+- Each Discrepancy may reference a Supplier Order Line.
+- Each Discrepancy references the approving User.
 - Discrepancy information supports Feature 17.
 
 ### User
@@ -344,7 +353,7 @@ Represents an employee authorized to receive Supplier Orders or review discrepan
 
 **Relationships:**
 - Receiving personnel create and complete Receiving Records.
-- Managers or Supervisors can review receiving discrepancies.
+- Managers or Supervisors approve receiving discrepancies and may close Supplier Orders.
 
 ---
 
@@ -407,6 +416,16 @@ Represents an employee authorized to receive Supplier Orders or review discrepan
 **When** the worker attempts to select "DOOR-2" for the record  
 **Then** the system rejects the selection  
 **And** requires a Receiving Door belonging to Warehouse A.
+
+#### AC-10.2.3a: Identify destination Warehouse mismatch
+
+**Given** a Submitted Supplier Order identifies Warehouse A as its destination  
+**And** a Receiving Clerk begins receiving the shipment at Warehouse B  
+**When** the Receiving Clerk attempts to select Warehouse B  
+**Then** the system identifies that the receiving Warehouse differs from the Supplier Order's destination Warehouse  
+**And** flags the mismatch for authorized review  
+**And** does not silently accept Warehouse B as the receiving Warehouse  
+**And** preserves the original destination Warehouse on the Supplier Order.
 
 #### AC-10.2.4: Require Receiving Door before completion
 
@@ -476,6 +495,16 @@ Represents an employee authorized to receive Supplier Orders or review discrepan
 **Then** the system denies the request  
 **And** no Receiving Record is created.
 
+#### AC-10.3.8: Identify Case UPC packaging mismatch
+
+**Given** a Supplier Order Line preserves 12 Units Per Case  
+**And** the delivered Case UPC represents 10 units  
+**When** the receiving worker scans the delivered case  
+**Then** the system identifies the packaging mismatch  
+**And** records 10 actual received units  
+**And** flags the discrepancy for Manager or Supervisor review  
+**And** preserves the original Units Per Case and Quantity Ordered.
+
 ### US-10.4: Reconcile Ordered and Received Quantities
 
 #### AC-10.4.1: Received quantity matches ordered quantity
@@ -513,18 +542,23 @@ Represents an employee authorized to receive Supplier Orders or review discrepan
 
 **Given** a Supplier Order Line contains 60 units ordered  
 **And** only 48 units were delivered  
-**And** the receiving worker has investigated the shortage  
-**When** the worker confirms the actual received quantity  
-**Then** the system records the confirmed shortage of 12 units  
-**And** preserves the original ordered quantity  
+**And** the Receiving Clerk has investigated and reported the shortage  
+**When** an authorized Manager or Supervisor reviews and approves the discrepancy  
+**Then** the system records a confirmed shortage of 12 units  
+**And** preserves the original Quantity Ordered  
+**And** records the approving User and approval date and time  
 **And** allows the receiving session to proceed to completion.
 
-#### AC-10.4.6: Prevent unreviewed discrepancy
+#### AC-10.4.6: Prevent unapproved discrepancy
 
-**Given** a Receiving Record contains an unresolved quantity discrepancy  
-**When** the receiving worker attempts to complete receiving without confirming it  
+**Given** a Receiving Record contains a shortage of 12 units  
+**And** the Receiving Clerk has reported the shortage  
+**And** no authorized Manager or Supervisor has approved the discrepancy  
+**When** the Receiving Clerk attempts to complete the Receiving Record  
 **Then** the system rejects completion  
-**And** identifies the discrepancy requiring review.
+**And** identifies the discrepancy requiring approval  
+**And** preserves the recorded received quantities  
+**And** does not change the Receiving Record status to Completed.
 
 #### AC-10.4.7: Preserve cumulative received quantity
 
@@ -541,11 +575,13 @@ Represents an employee authorized to receive Supplier Orders or review discrepan
 
 **Given** a valid Receiving Record contains scanned quantities  
 **And** a valid Receiving Door has been selected  
-**And** all identified discrepancies have been reviewed  
-**When** the receiving worker completes the session  
+**And** all identified discrepancies have been approved by an authorized Manager or Supervisor  
+**When** the authorized receiving worker completes the session  
 **Then** the system marks the Receiving Record as Completed  
 **And** records the completion date and time  
-**And** preserves the received quantities.
+**And** preserves the actual received quantities  
+**And** makes the received products available for Put Away  
+**And** does not automatically close the Supplier Order when additional deliveries are expected.
 
 #### AC-10.5.2: Mark order Partially Received
 
@@ -559,11 +595,13 @@ Represents an employee authorized to receive Supplier Orders or review discrepan
 #### AC-10.5.3: Mark order Received
 
 **Given** all expected receiving sessions for a Supplier Order are finished  
-**And** the receiving worker has confirmed any discrepancies  
+**And** any receiving discrepancies have been approved by an authorized Manager or Supervisor  
 **And** no additional deliveries are expected for the order  
-**When** an authorized user closes receiving for that Supplier Order  
+**When** an authorized Manager or Supervisor closes receiving for the Supplier Order  
 **Then** the system sets the Supplier Order status to Received  
-**And** preserves the actual quantities received.
+**And** preserves the original ordered quantities and actual received quantities  
+**And** preserves any confirmed shortages or overages  
+**And** records the closing User and closing date and time.
 
 #### AC-10.5.4: Make received products available for Put Away
 
