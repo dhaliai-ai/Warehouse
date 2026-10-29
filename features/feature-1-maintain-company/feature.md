@@ -498,7 +498,9 @@ The response contains the updated Company record.
 
 ### UI Design
 
-![Maintain Company Screen](../../docs/ui/WMS/Maintain%20Company.png)
+### UI Design
+
+![Maintain Company Screen](../../docs/ui/Maintain%20Company.png)
 **Screen ID:** UI-1  
 **Screen Name:** Company Maintenance  
 **Proposed design file:** `docs/UI/company-maintenance.png`

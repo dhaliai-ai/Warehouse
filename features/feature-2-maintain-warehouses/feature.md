@@ -643,7 +643,7 @@ The response contains the updated Warehouse record.
 ## Screen Requirements
 ### UI Design
 
-![Maintain Warehouse Screen](../../docs/ui/WMS/Maintain%20Warehouse.png)
+![Maintain Warehouse Screen](../../docs/ui/Maintain%20Warehouse.png)
 **Screen ID:** UI-2A  
 **Screen Name:** Warehouse List  
 **Proposed design file:** `docs/UI/warehouse-list.png`
