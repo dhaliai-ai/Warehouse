@@ -853,7 +853,13 @@ This operation is not exposed as a report-editing endpoint.
 
 ## Screen Requirements
 
+**Design status:** Mockups for Feature 16 Screen IDs SCREEN-16.1 through SCREEN-16.3. These are design images, not implemented application screens.
+
 ### SCREEN-16.1: Out-of-Stock Report Screen
+
+![Out-of-Stock Report](../../docs/ui/report-out-of-stock.png)
+
+**Design files:** `docs/ui/report-out-of-stock.png`
 
 **Purpose:**
 
@@ -912,6 +918,10 @@ Allow authorized Managers to view active and historical stockout occurrences.
 
 ### SCREEN-16.2: Out-of-Stock Record Details
 
+![Out-of-Stock Record Details](../../docs/ui/report-out-of-stock-details.png)
+
+**Design files:** `docs/ui/report-out-of-stock-details.png`
+
 **Purpose:**
 
 Allow an authorized Manager to review one stockout occurrence.
@@ -939,6 +949,14 @@ Allow an authorized Manager to review one stockout occurrence.
 5. No edit or delete actions are provided.
 
 ### SCREEN-16.3: Empty Results and Historical Data Warning
+
+![Out-of-Stock Report — empty](../../docs/ui/report-out-of-stock-empty.png)
+
+![Out-of-Stock Report — invalid date range](../../docs/ui/report-out-of-stock-invalid.png)
+
+![Out-of-Stock Report — unauthorized](../../docs/ui/report-out-of-stock-unauthorized.png)
+
+**Design files:** `docs/ui/report-out-of-stock-empty.png`, `docs/ui/report-out-of-stock-invalid.png`, `docs/ui/report-out-of-stock-unauthorized.png`. Historical incomplete warning is shown on SCREEN-16.1.
 
 **Purpose:**
 

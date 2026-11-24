@@ -18,15 +18,15 @@ This directory contains the **Warehouse Management System** product-specific fea
 
 | ID | File | Branch | Depends on |
 |----|------|--------|------------|
-| 1 | [Maintain Company](./feature-1-maintain-company/feature.md) | `feature/1-maintain-company` (proposed) | TBD |
-| 2 | [Maintain Warehouses](./feature-2-maintain-warehouses/feature.md) | `feature/2-maintain-warehouses` (proposed) | TBD |
-| 3 | [Maintain Inventory](./feature-3-maintain-inventory/feature.md) | `feature/3-maintain-inventory` (proposed) | TBD |
-| 4 | [Maintain Individual Item](./feature-4-maintain-individual-item/feature.md) | `feature/4-maintain-individual-item` (proposed) | TBD |
-| 5 | [Maintain Suppliers](./feature-5-maintain-suppliers/feature.md) | `feature/5-maintain-suppliers` (proposed) | TBD |
-| 6 | [Maintain Customers](./feature-6-maintain-customers/feature.md) | `feature/6-maintain-customers` (proposed) | TBD |
-| 7 | [Maintain Supplier Order Forms](./feature-7-maintain-supplier-order-forms/feature.md) | `feature/7-maintain-supplier-order-forms` (proposed) | TBD |
-| 8 | [Maintain Customer Order Forms](./feature-8-maintain-customer-order-forms/feature.md) | `feature/8-maintain-customer-order-forms` (proposed) | TBD |
-| 9 | [Create Supplier Order](./feature-9-create-supplier-order/feature.md) | `design-draft` (exists) | TBD |
+| 1 | [Maintain Company](./feature-01-maintain-company/feature.md) | `feature/1-maintain-company` (proposed) | TBD |
+| 2 | [Maintain Warehouses](./feature-02-maintain-warehouses/feature.md) | `feature/2-maintain-warehouses` (proposed) | TBD |
+| 3 | [Maintain Inventory](./feature-03-maintain-inventory/feature.md) | `feature/3-maintain-inventory` (proposed) | TBD |
+| 4 | [Maintain Individual Item](./feature-04-maintain-individual-item/feature.md) | `feature/4-maintain-individual-item` (proposed) | TBD |
+| 5 | [Maintain Suppliers](./feature-05-maintain-suppliers/feature.md) | `feature/5-maintain-suppliers` (proposed) | TBD |
+| 6 | [Maintain Customers](./feature-06-maintain-customers/feature.md) | `feature/6-maintain-customers` (proposed) | TBD |
+| 7 | [Maintain Supplier Order Forms](./feature-07-maintain-supplier-order-forms/feature.md) | `feature/7-maintain-supplier-order-forms` (proposed) | TBD |
+| 8 | [Maintain Customer Order Forms](./feature-08-maintain-customer-order-forms/feature.md) | `feature/8-maintain-customer-order-forms` (proposed) | TBD |
+| 9 | [Create Supplier Order](./feature-09-create-supplier-order/feature.md) | `design-draft` (exists) | TBD |
 | 10 | [Receive Supplier Order](./feature-10-receive-supplier-order/feature.md) | `design-draft` (exists) | TBD |
 | 11 | [Put Away Received Items](./feature-11-put-away-received-items/feature.md) | `feature/11-put-away-received-items` (proposed) | 2, 3, 4, 9, 10 |
 | 12 | [Receive Customer Orders](./feature-12-receive-customer-orders/feature.md) | `feature/12-receive-customer-orders` (proposed) | TBD |

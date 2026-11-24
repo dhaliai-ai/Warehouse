@@ -1284,7 +1284,15 @@ Retrieve the details of a recorded Delivery Discrepancy for management review.
 
 ## Screen Requirements
 
+**Design status:** Mockups for Feature 18 Screen IDs SCREEN-18.1 through SCREEN-18.4. These are design images, not implemented application screens.
+
 ### SCREEN-18.1: Delivery Difference Report Screen
+
+![Delivery Difference Report](../../docs/ui/report-delivery-differences.png)
+
+![Delivery Difference Report — incomplete history](../../docs/ui/report-delivery-differences-incomplete.png)
+
+**Design files:** `docs/ui/report-delivery-differences.png`, `docs/ui/report-delivery-differences-incomplete.png`
 
 **Purpose:**
 
@@ -1371,6 +1379,10 @@ Allow authorized Managers to identify, filter, and review differences between Qu
 
 ### SCREEN-18.2: Delivery Difference Details Screen
 
+![Delivery Difference Details](../../docs/ui/report-delivery-difference-details.png)
+
+**Design files:** `docs/ui/report-delivery-difference-details.png`
+
 **Purpose:**
 
 Allow an authorized Manager to review the Shipment, Delivery, and discrepancy information associated with a reported difference.
@@ -1419,6 +1431,10 @@ Allow an authorized Manager to review the Shipment, Delivery, and discrepancy in
 
 ### SCREEN-18.3: Delivery History Screen
 
+![Delivery History (reporting)](../../docs/ui/report-delivery-history.png)
+
+**Design files:** `docs/ui/report-delivery-history.png`
+
 **Purpose:**
 
 Allow an authorized Manager to review previous delivery attempts and historical discrepancies.
@@ -1451,6 +1467,16 @@ Allow an authorized Manager to review previous delivery attempts and historical 
 7. No historical records may be modified from this screen.
 
 ### SCREEN-18.4: Empty Results and Validation Messages
+
+![Delivery Difference Report — empty](../../docs/ui/report-delivery-differences-empty.png)
+
+![Delivery Difference Report — invalid date range](../../docs/ui/report-delivery-differences-invalid.png)
+
+![Delivery Difference Report — pending](../../docs/ui/report-delivery-differences-pending.png)
+
+![Delivery Difference Report — unauthorized](../../docs/ui/report-delivery-differences-unauthorized.png)
+
+**Design files:** `docs/ui/report-delivery-differences-empty.png`, `docs/ui/report-delivery-differences-invalid.png`, `docs/ui/report-delivery-differences-pending.png`, `docs/ui/report-delivery-differences-unauthorized.png`
 
 **Purpose:**
 

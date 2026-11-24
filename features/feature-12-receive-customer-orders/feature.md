@@ -506,7 +506,7 @@ Represents an authenticated employee whose role determines whether Customer Orde
 
 ---
 
-## Gherkin Acceptance Criteria
+## Gherkin AC
 
 ### US-12.1: Record Customer Order
 
@@ -1254,7 +1254,15 @@ Feature 12 owns the creation, maintenance, validation, release, and eligible can
 
 ## Screen Requirements
 
+**Design status:** Mockups for Feature 12 Screen IDs SCREEN-12.1 through SCREEN-12.5. These are design images, not implemented application screens.
+
 ### SCREEN-12.1: Customer Order List
+
+![Customer Order List](../../docs/ui/customer-order-list.png)
+
+![Customer Order List — empty](../../docs/ui/customer-order-list-empty.png)
+
+**Design files:** `docs/ui/customer-order-list.png`, `docs/ui/customer-order-list-empty.png`
 
 **Purpose:** Allow authorized office personnel to find, review, and open Customer Orders.
 
@@ -1286,6 +1294,10 @@ Feature 12 owns the creation, maintenance, validation, release, and eligible can
 - Prevent unauthorized users from accessing editing operations.
 
 ### SCREEN-12.2: Customer Order Entry and Edit
+
+![Customer Order Entry and Edit](../../docs/ui/customer-order-entry.png)
+
+**Design files:** `docs/ui/customer-order-entry.png`
 
 **Purpose:** Create and maintain Customer Orders while they are Draft.
 
@@ -1330,6 +1342,10 @@ Feature 12 owns the creation, maintenance, validation, release, and eligible can
 
 ### SCREEN-12.3: Customer Order Detail
 
+![Customer Order Detail](../../docs/ui/customer-order-detail.png)
+
+**Design files:** `docs/ui/customer-order-detail.png`
+
 **Purpose:** Display a Customer Order and its fulfillment progress.
 
 **Authorized Users:**
@@ -1368,6 +1384,10 @@ Feature 12 owns the creation, maintenance, validation, release, and eligible can
 
 ### SCREEN-12.4: Release Customer Order Confirmation
 
+![Release Customer Order Confirmation](../../docs/ui/customer-order-release.png)
+
+**Design files:** `docs/ui/customer-order-release.png`
+
 **Purpose:** Allow authorized office personnel to review a completed Draft order before releasing it for picking.
 
 **Authorized Users:**
@@ -1396,6 +1416,10 @@ Feature 12 owns the creation, maintenance, validation, release, and eligible can
 - Prevent repeated release from creating duplicate picking work.
 
 ### SCREEN-12.5: Cancel Customer Order Confirmation
+
+![Cancel Customer Order Confirmation](../../docs/ui/customer-order-cancel.png)
+
+**Design files:** `docs/ui/customer-order-cancel.png`
 
 **Purpose:** Allow a Manager to cancel an eligible Customer Order before fulfillment begins.
 

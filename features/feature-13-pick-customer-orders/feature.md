@@ -681,7 +681,7 @@ Represents an employee authorized to perform picking or review shortages.
 
 ---
 
-## Gherkin Acceptance Criteria
+## Gherkin AC
 
 ### US-13.1: Start Picking a Customer Order
 
@@ -1555,7 +1555,15 @@ The following endpoints are proposed interfaces for the Feature 13 design draft.
 
 ## Screen Requirements
 
+**Design status:** Mockups for Feature 13 Screen IDs SCREEN-13.1 through SCREEN-13.8. These are design images, not implemented application screens. Original `docs/ui/Handheld/Picking Scan.png` is retained.
+
 ### SCREEN-13.1: Available Picking Work
+
+![Available Picking Work](../../docs/ui/Handheld/picking-available-work.png)
+
+![Available Picking Work — empty](../../docs/ui/Handheld/picking-available-work-empty.png)
+
+**Design files:** `docs/ui/Handheld/picking-available-work.png`, `docs/ui/Handheld/picking-available-work-empty.png`
 
 **Purpose:** Allow an authorized Picker to request available Customer Orders.
 
@@ -1583,6 +1591,10 @@ The following endpoints are proposed interfaces for the Feature 13 design draft.
 - Require an authorized user.
 
 ### SCREEN-13.2: Picking Assignment Overview
+
+![Picking Assignment Overview](../../docs/ui/Handheld/picking-assignment.png)
+
+**Design files:** `docs/ui/Handheld/picking-assignment.png`
 
 **Purpose:** Show the Picker the assigned Customer Order and picking progress.
 
@@ -1614,6 +1626,12 @@ The following endpoints are proposed interfaces for the Feature 13 design draft.
 - Preserve assignment progress.
 
 ### SCREEN-13.3: Picking Instruction
+
+![Picking Instruction](../../docs/ui/Handheld/picking-instruction.png)
+
+![Picking Instruction — confirmation unavailable](../../docs/ui/Handheld/picking-unconfirmed.png)
+
+**Design files:** `docs/ui/Handheld/picking-instruction.png`, `docs/ui/Handheld/picking-unconfirmed.png`
 
 **Purpose:** Direct the Picker to the next assigned Item and source Warehouse Location.
 
@@ -1655,6 +1673,14 @@ The following endpoints are proposed interfaces for the Feature 13 design draft.
 
 ### SCREEN-13.4: Barcode Verification
 
+![Barcode Verification](../../docs/ui/Handheld/picking-barcode-verify.png)
+
+![Barcode Verification — incorrect location](../../docs/ui/Handheld/picking-barcode-location-error.png)
+
+![Barcode Verification — incorrect item](../../docs/ui/Handheld/picking-barcode-item-error.png)
+
+**Design files:** `docs/ui/Handheld/picking-barcode-verify.png`, `docs/ui/Handheld/picking-barcode-location-error.png`, `docs/ui/Handheld/picking-barcode-item-error.png`
+
 **Purpose:** Confirm the correct Warehouse Location and Individual Item before picking.
 
 **Authorized User:**
@@ -1683,6 +1709,10 @@ The following endpoints are proposed interfaces for the Feature 13 design draft.
 - Do not update Inventory during verification alone.
 
 ### SCREEN-13.5: Picking Shortage
+
+![Picking Shortage](../../docs/ui/Handheld/picking-shortage.png)
+
+**Design files:** `docs/ui/Handheld/picking-shortage.png`
 
 **Purpose:** Record insufficient Inventory at the assigned picking location.
 
@@ -1715,6 +1745,10 @@ The following endpoints are proposed interfaces for the Feature 13 design draft.
 
 ### SCREEN-13.6: Picking Completion
 
+![Picking Completion](../../docs/ui/Handheld/picking-completion.png)
+
+**Design files:** `docs/ui/Handheld/picking-completion.png`
+
 **Purpose:** Review and complete a Picking Assignment.
 
 **Authorized User:**
@@ -1746,6 +1780,10 @@ The following endpoints are proposed interfaces for the Feature 13 design draft.
 
 ### SCREEN-13.7: Supervisor Shortage Review
 
+![Supervisor Shortage Review](../../docs/ui/picking-shortage-review.png)
+
+**Design files:** `docs/ui/picking-shortage-review.png`
+
 **Purpose:** Allow authorized Supervisors to review unresolved picking shortages.
 
 **Authorized Users:**
@@ -1775,6 +1813,10 @@ The following endpoints are proposed interfaces for the Feature 13 design draft.
 - Do not automatically mark missing units as picked.
 
 ### SCREEN-13.8: Picking History
+
+![Picking History](../../docs/ui/picking-history.png)
+
+**Design files:** `docs/ui/picking-history.png`
 
 **Purpose:** Allow authorized personnel to review completed Picking Assignments.
 

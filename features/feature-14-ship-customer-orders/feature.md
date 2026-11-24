@@ -654,7 +654,7 @@ Represents an employee authorized to prepare, verify, or review Shipments.
 
 ---
 
-## Gherkin Acceptance Criteria
+## Gherkin AC
 
 ### US-14.1: Select Picked Customer Order for Shipping
 
@@ -1594,7 +1594,13 @@ The following endpoints are proposed for the Feature 14 design draft. Final rout
 
 ## Screen Requirements
 
+**Design status:** Mockups for Feature 14 Screen IDs SCREEN-14.1 through SCREEN-14.8. These are design images, not implemented application screens. Handheld files for SCREEN-14.3 and SCREEN-14.4 are under `docs/ui/Handheld/`.
+
 ### SCREEN-14.1: Available Customer Orders for Shipping
+
+![Available Customer Orders for Shipping](../../docs/ui/shipping-available-orders.png)
+
+**Design files:** `docs/ui/shipping-available-orders.png`
 
 **Purpose:** Allow Shipping Clerks to identify Customer Orders with picked quantities available for shipping.
 
@@ -1624,6 +1630,10 @@ The following endpoints are proposed for the Feature 14 design draft. Final rout
 - Prevent Shipment creation when no picked quantities are available.
 
 ### SCREEN-14.2: Shipment Preparation
+
+![Shipment Preparation](../../docs/ui/shipping-preparation.png)
+
+**Design files:** `docs/ui/shipping-preparation.png`
 
 **Purpose:** Allow Shipping Clerks to prepare a Shipment using picked products.
 
@@ -1659,6 +1669,12 @@ The following endpoints are proposed for the Feature 14 design draft. Final rout
 
 ### SCREEN-14.3: Shipment Item Verification
 
+![Shipment Item Verification](../../docs/ui/Handheld/shipping-item-verify.png)
+
+![Shipment Item Verification — incorrect item](../../docs/ui/Handheld/shipping-item-verify-error.png)
+
+**Design files:** `docs/ui/Handheld/shipping-item-verify.png`, `docs/ui/Handheld/shipping-item-verify-error.png`
+
 **Purpose:** Verify the products included in a Shipment.
 
 **Authorized Users:**
@@ -1691,6 +1707,10 @@ The following endpoints are proposed for the Feature 14 design draft. Final rout
 
 ### SCREEN-14.4: Shipment Quantity Confirmation
 
+![Shipment Quantity Confirmation](../../docs/ui/Handheld/shipping-quantity.png)
+
+**Design files:** `docs/ui/Handheld/shipping-quantity.png`
+
 **Purpose:** Record actual quantities prepared for shipping.
 
 **Authorized Users:**
@@ -1720,6 +1740,10 @@ The following endpoints are proposed for the Feature 14 design draft. Final rout
 - Do not update cumulative Quantity Shipped until finalization.
 
 ### SCREEN-14.5: Shipment Packaging and Labeling
+
+![Shipment Packaging and Labeling](../../docs/ui/shipping-packaging.png)
+
+**Design files:** `docs/ui/shipping-packaging.png`
 
 **Purpose:** Record required Shipment preparation steps.
 
@@ -1752,6 +1776,10 @@ The following endpoints are proposed for the Feature 14 design draft. Final rout
 - Prevent release until all required steps are complete.
 
 ### SCREEN-14.6: Shipment Completion
+
+![Shipment Completion](../../docs/ui/shipping-completion.png)
+
+**Design files:** `docs/ui/shipping-completion.png`
 
 **Purpose:** Review and finalize a prepared Shipment.
 
@@ -1790,6 +1818,10 @@ The following endpoints are proposed for the Feature 14 design draft. Final rout
 
 ### SCREEN-14.7: Shipping Exception Review
 
+![Shipping Exception Review](../../docs/ui/shipping-exceptions.png)
+
+**Design files:** `docs/ui/shipping-exceptions.png`
+
 **Purpose:** Allow authorized Supervisors to review shipping problems.
 
 **Authorized Users:**
@@ -1820,6 +1852,10 @@ The following endpoints are proposed for the Feature 14 design draft. Final rout
 - Prevent release while blocking exceptions remain unresolved.
 
 ### SCREEN-14.8: Shipment History
+
+![Shipment History](../../docs/ui/shipping-history.png)
+
+**Design files:** `docs/ui/shipping-history.png`
 
 **Purpose:** Allow authorized personnel to review completed Shipments.
 

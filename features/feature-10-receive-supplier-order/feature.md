@@ -1049,11 +1049,15 @@ Feature 10 records the receiving worker and discrepancy approver.
 
 ## Screen Requirements
 
-**Design Status:** Proposed. The image paths below are planned mockups, not confirmed existing files.
+**Design status:** Mockups for Feature 10 Screen IDs UI-10A through UI-10G. These are design images, not implemented application screens. Original `docs/ui/Handheld/Receiving Scan.png` is retained and was not overwritten.
 
 ### UI-10A: Supplier Order Lookup
 
-**Proposed Image:** `docs/UI/receive-supplier-order-lookup.png`
+![Supplier Order Lookup](../../docs/ui/Handheld/receive-supplier-order-lookup.png)
+
+![Supplier Order Lookup — unknown PO](../../docs/ui/Handheld/receive-supplier-order-lookup-unknown.png)
+
+**Design files:** `docs/ui/Handheld/receive-supplier-order-lookup.png`, `docs/ui/Handheld/receive-supplier-order-lookup-unknown.png`
 
 **Purpose:** Identify a shipment using the PO Number on the bill of lading.
 
@@ -1073,7 +1077,11 @@ Feature 10 records the receiving worker and discrepancy approver.
 
 ### UI-10B: Receiving Warehouse and Door
 
-**Proposed Image:** `docs/UI/receive-supplier-order-door.png`
+![Receiving Warehouse and Door](../../docs/ui/Handheld/receive-supplier-order-door.png)
+
+![Receiving Warehouse and Door — mismatch](../../docs/ui/Handheld/receive-supplier-order-door-mismatch.png)
+
+**Design files:** `docs/ui/Handheld/receive-supplier-order-door.png`, `docs/ui/Handheld/receive-supplier-order-door-mismatch.png`
 
 **Purpose:** Record the actual receiving location.
 
@@ -1091,7 +1099,13 @@ Feature 10 records the receiving worker and discrepancy approver.
 
 ### UI-10C: Scan Received Items
 
-**Proposed Image:** `docs/UI/receive-supplier-order-scan.png`
+![Scan Received Items](../../docs/ui/Handheld/receive-supplier-order-scan.png)
+
+![Scan Received Items — invalid barcode](../../docs/ui/Handheld/receive-supplier-order-scan-invalid.png)
+
+![Scan Received Items — confirmation unavailable](../../docs/ui/Handheld/receive-supplier-order-scan-connection.png)
+
+**Design files:** `docs/ui/Handheld/receive-supplier-order-scan.png`, `docs/ui/Handheld/receive-supplier-order-scan-invalid.png`, `docs/ui/Handheld/receive-supplier-order-scan-connection.png`
 
 **Purpose:** Record delivered products through scanning.
 
@@ -1119,7 +1133,9 @@ Feature 10 records the receiving worker and discrepancy approver.
 
 ### UI-10D: Receiving Discrepancy Review
 
-**Proposed Image:** `docs/UI/receive-supplier-order-discrepancies.png`
+![Receiving Discrepancy Review](../../docs/ui/Handheld/receive-supplier-order-discrepancies.png)
+
+**Design files:** `docs/ui/Handheld/receive-supplier-order-discrepancies.png`
 
 **Purpose:** Investigate differences.
 
@@ -1143,7 +1159,11 @@ Feature 10 records the receiving worker and discrepancy approver.
 
 ### UI-10E: Complete Receiving
 
-**Proposed Image:** `docs/UI/receive-supplier-order-complete.png`
+![Complete Receiving](../../docs/ui/Handheld/receive-supplier-order-complete.png)
+
+![Complete Receiving — approval missing](../../docs/ui/Handheld/receive-supplier-order-complete-blocked.png)
+
+**Design files:** `docs/ui/Handheld/receive-supplier-order-complete.png`, `docs/ui/Handheld/receive-supplier-order-complete-blocked.png`
 
 **Purpose:** Confirm completion of a Receiving Record.
 
@@ -1165,7 +1185,9 @@ Feature 10 records the receiving worker and discrepancy approver.
 
 ### UI-10F: Supplier Order Receiving Closure
 
-**Proposed Image:** `docs/UI/receive-supplier-order-close.png`
+![Supplier Order Receiving Closure](../../docs/ui/receive-supplier-order-close.png)
+
+**Design files:** `docs/ui/receive-supplier-order-close.png`
 
 **Purpose:** Allow authorized final closure.
 
@@ -1187,7 +1209,9 @@ Feature 10 records the receiving worker and discrepancy approver.
 
 ### UI-10G: Receiving History
 
-**Proposed Image:** `docs/UI/receive-supplier-order-history.png`
+![Receiving History](../../docs/ui/receive-supplier-order-history.png)
+
+**Design files:** `docs/ui/receive-supplier-order-history.png`
 
 **Purpose:** Review previous receiving sessions.
 
@@ -1218,13 +1242,20 @@ Feature 10 records the receiving worker and discrepancy approver.
 
 ### Proposed UI Deliverables
 
-- `docs/UI/receive-supplier-order-lookup.png`
-- `docs/UI/receive-supplier-order-door.png`
-- `docs/UI/receive-supplier-order-scan.png`
-- `docs/UI/receive-supplier-order-discrepancies.png`
-- `docs/UI/receive-supplier-order-complete.png`
-- `docs/UI/receive-supplier-order-close.png`
-- `docs/UI/receive-supplier-order-history.png`
+- `docs/ui/Handheld/receive-supplier-order-lookup.png`
+- `docs/ui/Handheld/receive-supplier-order-lookup-unknown.png`
+- `docs/ui/Handheld/receive-supplier-order-door.png`
+- `docs/ui/Handheld/receive-supplier-order-door-mismatch.png`
+- `docs/ui/Handheld/receive-supplier-order-scan.png`
+- `docs/ui/Handheld/receive-supplier-order-scan-invalid.png`
+- `docs/ui/Handheld/receive-supplier-order-scan-connection.png`
+- `docs/ui/Handheld/receive-supplier-order-discrepancies.png`
+- `docs/ui/Handheld/receive-supplier-order-complete.png`
+- `docs/ui/Handheld/receive-supplier-order-complete-blocked.png`
+- `docs/ui/receive-supplier-order-close.png`
+- `docs/ui/receive-supplier-order-history.png`
+
+These paths match the repository folders `docs/ui/` and `docs/ui/Handheld/`. Original `docs/ui/Handheld/Receiving Scan.png` is retained.
 
 ---
 

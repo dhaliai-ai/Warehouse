@@ -1224,7 +1224,13 @@ Allow an authorized Manager to review completed receiving activity and associate
 
 ## Screen Requirements
 
+**Design status:** Mockups for Feature 17 Screen IDs SCREEN-17.1 through SCREEN-17.3. These are design images, not implemented application screens.
+
 ### SCREEN-17.1: Supplier Difference Report Screen
+
+![Supplier Difference Report](../../docs/ui/report-supplier-differences.png)
+
+**Design files:** `docs/ui/report-supplier-differences.png`
 
 **Purpose:**
 
@@ -1304,6 +1310,10 @@ Allow authorized Managers to review quantity differences between Supplier Orders
 
 ### SCREEN-17.2: Supplier Difference Details Screen
 
+![Supplier Difference Details](../../docs/ui/report-supplier-difference-details.png)
+
+**Design files:** `docs/ui/report-supplier-difference-details.png`
+
 **Purpose:**
 
 Allow a Manager to review the quantities and receiving information associated with one reported Supplier Order Line.
@@ -1353,6 +1363,16 @@ Allow a Manager to review the quantities and receiving information associated wi
 9. No edit, approve, or delete actions are available.
 
 ### SCREEN-17.3: Empty Results and Data Quality Messages
+
+![Supplier Difference Report — empty](../../docs/ui/report-supplier-differences-empty.png)
+
+![Supplier Difference Report — invalid date range](../../docs/ui/report-supplier-differences-invalid.png)
+
+![Supplier Difference Report — provisional](../../docs/ui/report-supplier-differences-provisional.png)
+
+![Supplier Difference Report — unauthorized](../../docs/ui/report-supplier-differences-unauthorized.png)
+
+**Design files:** `docs/ui/report-supplier-differences-empty.png`, `docs/ui/report-supplier-differences-invalid.png`, `docs/ui/report-supplier-differences-provisional.png`, `docs/ui/report-supplier-differences-unauthorized.png`
 
 **Purpose:**
 
