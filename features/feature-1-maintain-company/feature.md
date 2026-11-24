@@ -496,10 +496,6 @@ The response contains the updated Company record.
 ## Screen Requirements
 ### UI Design
 
-### UI Design
-
-### UI Design
-
 ![Maintain Company Screen](../../docs/ui/Maintain%20Company.png)
 **Screen ID:** UI-1  
 **Screen Name:** Company Maintenance  

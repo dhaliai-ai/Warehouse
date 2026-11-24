@@ -1319,7 +1319,7 @@ The endpoint names, payloads, and response codes below are design proposals. The
 ## Screen Requirements
 ### UI Design
 
-![Maintain Items and Suppliers Screen](../../docs/ui/WMS/Maintain%20Items%20and%20Suppliers.png)
+![Maintain Items and Suppliers Screen](../../docs/ui/Maintain%20Items%20and%20Suppliers.png)
 **Design status:** Proposed screens for the Warehouse Management System.
 
 Screen images must be created and linked to Feature 3 as part of the design documentation.

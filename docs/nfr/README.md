@@ -20,10 +20,13 @@ NFRs here do **not** authorize new product behavior. Feature specs still authori
 
 | File | Contents |
 |------|----------|
-| [quality-attributes.md](./quality-attributes.md) | Attribute table + **Status** / **Links** documentation |
+| [quality-attributes.md](./quality-attributes.md) | Authoritative OC Speckit attribute table (**Target**, **Approach**, **How we verify**, **Status**, **Links**) |
+| [NFR.md](./NFR.md) | Supporting warehouse-specific nonfunctional requirements and identifiers; does not independently change **Status** |
 | [writing-quality-attributes.md](./writing-quality-attributes.md) | Student guide — when/how to write NFR rows |
 
 **Student guide:** [writing-quality-attributes.md](./writing-quality-attributes.md)
+
+[quality-attributes.md](./quality-attributes.md) is the OC Speckit status and quality-target table. [NFR.md](./NFR.md) lists warehouse requirement identifiers that support that table; **Deferred** numbers in either file stay proposed until Status is **Accepted**.
 
 See the teaching repo’s `docs/nfr/quality-attributes.md` for a filled-in example table, or expand [quality-attributes.md](./quality-attributes.md) as you set bars for your product.
 

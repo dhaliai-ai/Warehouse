@@ -508,7 +508,7 @@ The server generates `customerId` on creation. An update retains the existing `c
 ## Screen Requirements
 ### UI Design
 
-![Warehouse Dashboard](../../docs/ui/WMS/Warehouse%20Dashboard.png)
+![Warehouse Dashboard](../../docs/ui/Warehouse%20Dashboard.png)
 **Design status:** Proposed screen specifications; screen images are deliverables, not yet claimed as created.
 
 | Screen | Proposed image | Main content and actions |

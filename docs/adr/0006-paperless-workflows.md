@@ -1,7 +1,8 @@
-# ADR-006: Implement Paperless Warehouse Workflows
+# ADR-0006: Implement Paperless Warehouse Workflows
 
-**Status:** Proposed  
-**Date:** 2026-10-28  
+**Status:** Proposed\
+**Date:** 2026-10-28\
+**Deciders:** Warehouse System Design Team\
 **Project:** Warehouse Management System
 
 ## Context
@@ -32,6 +33,10 @@ The system will provide electronic workflows for:
 Operational changes will be recorded in the system rather than relying on handwritten documents.
 
 The system will preserve relevant transaction histories for accountability and reporting.
+
+Inventory-changing digital workflows shall follow the transaction integrity rules in [ADR-0009](./0009-inventory-transaction-integrity.md). Device reliability, scan errors, duplicate submissions, and recovery from network interruptions shall follow [ADR-0010](./0010-barcode-error-handling.md).
+
+This decision does not introduce full offline processing or additional product features. Inventory-changing operations remain online-first and require backend confirmation before they are shown as completed.
 
 ## Rationale
 
@@ -68,6 +73,8 @@ This decision aligns with the warehouse owner's preference for device-based oper
 
 ## Related Artifacts
 
-- `docs/Arch_Diagrams/Warehouse-C4-System-Context.png`
-- `docs/Arch_Diagrams/Warehouse-C4-Component.png`
+- [Level 1 — System Context](../Arch_Diagrams/Warehouse-C4-System-Context.png)
+- [Level 3 — Component Diagram](../Arch_Diagrams/Warehouse-C4-Component.drawio.png)
+- [ADR-0009: Inventory Transaction Integrity](./0009-inventory-transaction-integrity.md)
+- [ADR-0010: Barcode Error Handling and Device Reliability](./0010-barcode-error-handling.md)
 - Receiving, Putaway, Picking, Shipping, and Delivery feature specifications in `features/`.

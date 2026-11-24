@@ -1,7 +1,8 @@
-# ADR-004: Implement Role-Based Access Control
+# ADR-0004: Implement Role-Based Access Control
 
-**Status:** Proposed  
-**Date:** 2026-10-28  
+**Status:** Proposed\
+**Date:** 2026-10-28\
+**Deciders:** Warehouse System Design Team\
 **Project:** Warehouse Management System
 
 ## Context
@@ -20,6 +21,8 @@ The Warehouse Management System will implement Role-Based Access Control (RBAC).
 
 Each authenticated user will be assigned one or more authorized roles. Permissions will determine which functions and operations the user can perform.
 
+Access also depends on **authorized warehouse assignments**. A valid role does not grant access to every warehouse. Warehouse-specific inventory, locations, tasks, and transactions are available only for warehouses assigned to the user, as defined in [ADR-0008](./0008-cross-warehouse-data-isolation.md).
+
 The proposed roles and permissions include:
 
 | Role | Authorized Functions |
@@ -36,6 +39,14 @@ The Warehouse Backend API will enforce permissions for every protected operation
 
 The user interface will display functions according to the user's role, but hiding a menu option will not replace backend authorization.
 
+### Driver permissions as documented
+
+This ADR does not add driver capabilities beyond existing documentation.
+
+Documented driver **write** operations remain those already stated above and in Feature 15 (Deliver Customer Orders): view assigned deliveries, record delivery outcomes, and report delivery discrepancies. Drivers cannot confirm deliveries assigned to another driver without authorized reassignment, and they cannot silently change finalized delivery records.
+
+Feature specifications also document **read-only** driver access to item, customer, warehouse, and inventory information when authorized for assigned work. Those specifications deny drivers receiving, picking, shipping, master-data edits, and reporting unless a feature explicitly grants that permission.
+
 ## Rationale
 
 Role-Based Access Control was selected because the Warehouse Management System has clearly defined employee responsibilities.
@@ -43,6 +54,8 @@ Role-Based Access Control was selected because the Warehouse Management System h
 RBAC supports the principle of least privilege by restricting access to only the operations required for each role.
 
 Centralized authorization also improves security, consistency, and maintainability.
+
+Combining role checks with warehouse assignments prevents an authorized role in one warehouse from accessing another warehouse's operational records.
 
 ## Consequences
 
@@ -67,6 +80,7 @@ Centralized authorization also improves security, consistency, and maintainabili
 
 ## Related Artifacts
 
-- `docs/Arch_Diagrams/Warehouse-C4-System-Context.png`
-- `docs/Arch_Diagrams/Warehouse-C4-Container.png`
+- [Level 1 — System Context](../Arch_Diagrams/Warehouse-C4-System-Context.png)
+- [Level 2 — Container Diagram](../Arch_Diagrams/Warehouse-C4-Container1.drawio.png)
+- [ADR-0008: Cross-Warehouse Data Isolation](./0008-cross-warehouse-data-isolation.md)
 - Warehouse feature specifications in `features/`.

@@ -2143,7 +2143,8 @@ The following activities are outside the scope of Feature 11: Put Away Received 
 - Moving already stored Inventory between bins for reasons unrelated to receiving.
 - Reorganizing existing Inventory.
 - Performing routine Inventory transfers.
-- These activities belong to the separate Move Inventory feature.
+- These intra-warehouse activities belong to Feature 3 — Maintain Inventory (Inventory Movement).
+- Inter-warehouse transfers and physical replenishment execution are not specified as Feature 11 work and remain unresolved design questions.
 - Feature 11 handles only the initial placement of received products into storage.
 
 **8. User Account and Role Administration**
