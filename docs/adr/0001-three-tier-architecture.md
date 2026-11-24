@@ -29,9 +29,9 @@ This three-tier split matches the C4 model used in the project diagrams: people 
 
 | Tier | Proposed technologies |
 |---|---|
-| Presentation | Vue 3, Vuetify, Vite, Vue Router, and Axios |
+| Presentation | Vue 3, Vuetify 4, Vite, Vue Router, and Axios |
 | Application | Node.js, Express, and Sequelize |
-| Data | MySQL |
+| Data | MySQL with the InnoDB storage engine |
 
 These technologies are the proposed implementation baseline documented in the root README. The presentation tier is a web application for desktop and compatible handheld devices. The application tier exposes a REST API. The data tier is a relational MySQL database accessed only through the backend.
 

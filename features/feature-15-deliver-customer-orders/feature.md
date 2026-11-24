@@ -746,7 +746,7 @@ Represents an authenticated Driver, Shipping Supervisor, or Manager.
 
 ---
 
-## Gherkin Acceptance Criteria
+## Gherkin AC
 
 ### US-15.1: Identify Customer Orders for Delivery
 
@@ -1690,7 +1690,15 @@ The following API endpoints are proposed for the Feature 15 design draft. Final 
 
 ## Screen Requirements
 
+**Design status:** Mockups for Feature 15 Screen IDs SCREEN-15.1 through SCREEN-15.9. These are design images, not implemented application screens. Driver screens are under `docs/ui/Handheld/`.
+
 ### SCREEN-15.1: Assigned Deliveries
+
+![Assigned Deliveries](../../docs/ui/Handheld/delivery-assigned.png)
+
+![Assigned Deliveries — empty](../../docs/ui/Handheld/delivery-assigned-empty.png)
+
+**Design files:** `docs/ui/Handheld/delivery-assigned.png`, `docs/ui/Handheld/delivery-assigned-empty.png`
 
 **Purpose:** Allow Drivers to view Shipments assigned to their Delivery Routes.
 
@@ -1721,6 +1729,10 @@ The following API endpoints are proposed for the Feature 15 design draft. Final 
 - Prevent Drivers from selecting another Driver's assignment without authorization.
 
 ### SCREEN-15.2: Delivery Details
+
+![Delivery Details](../../docs/ui/Handheld/delivery-details.png)
+
+**Design files:** `docs/ui/Handheld/delivery-details.png`
 
 **Purpose:** Display the selected Shipment and delivery information.
 
@@ -1757,6 +1769,10 @@ The following API endpoints are proposed for the Feature 15 design draft. Final 
 
 ### SCREEN-15.3: Record Quantity Delivered
 
+![Record Quantity Delivered](../../docs/ui/Handheld/delivery-quantity.png)
+
+**Design files:** `docs/ui/Handheld/delivery-quantity.png`
+
 **Purpose:** Allow the assigned Driver to record actual quantities received by the Customer.
 
 **Authorized Users:**
@@ -1789,6 +1805,10 @@ The following API endpoints are proposed for the Feature 15 design draft. Final 
 
 ### SCREEN-15.4: Delivery Discrepancy Entry
 
+![Delivery Discrepancy Entry](../../docs/ui/Handheld/delivery-discrepancy.png)
+
+**Design files:** `docs/ui/Handheld/delivery-discrepancy.png`
+
 **Purpose:** Allow Drivers to record differences or problems identified during delivery.
 
 **Authorized Users:**
@@ -1820,6 +1840,10 @@ The following API endpoints are proposed for the Feature 15 design draft. Final 
 - Preserve discrepancy information for Feature 18.
 
 ### SCREEN-15.5: Delivery Outcome Confirmation
+
+![Delivery Outcome Confirmation](../../docs/ui/Handheld/delivery-outcome.png)
+
+**Design files:** `docs/ui/Handheld/delivery-outcome.png`
 
 **Purpose:** Allow Drivers to finalize successful, partial, or unsuccessful delivery attempts.
 
@@ -1861,6 +1885,10 @@ The following API endpoints are proposed for the Feature 15 design draft. Final 
 
 ### SCREEN-15.6: Delivery Assignment Administration
 
+![Delivery Assignment Administration](../../docs/ui/delivery-assignment-admin.png)
+
+**Design files:** `docs/ui/delivery-assignment-admin.png`
+
 **Purpose:** Allow authorized Supervisors or Managers to assign Shipments to Drivers and Delivery Routes.
 
 **Authorized Users:**
@@ -1893,6 +1921,10 @@ The following API endpoints are proposed for the Feature 15 design draft. Final 
 
 ### SCREEN-15.7: Delivery Reassignment
 
+![Delivery Reassignment](../../docs/ui/delivery-reassignment.png)
+
+**Design files:** `docs/ui/delivery-reassignment.png`
+
 **Purpose:** Arrange another delivery attempt for outstanding quantities.
 
 **Authorized Users:**
@@ -1923,6 +1955,10 @@ The following API endpoints are proposed for the Feature 15 design draft. Final 
 - Limit the new attempt to remaining undelivered quantities.
 
 ### SCREEN-15.8: Delivery History
+
+![Delivery History](../../docs/ui/delivery-history.png)
+
+**Design files:** `docs/ui/delivery-history.png`
 
 **Purpose:** Allow authorized Managers to review Delivery outcomes and historical records.
 
@@ -1959,6 +1995,10 @@ The following API endpoints are proposed for the Feature 15 design draft. Final 
 - Restrict access according to role permissions.
 
 ### SCREEN-15.9: Delivery Discrepancy Review
+
+![Delivery Discrepancy Review](../../docs/ui/delivery-discrepancy-review.png)
+
+**Design files:** `docs/ui/delivery-discrepancy-review.png`
 
 **Purpose:** Allow authorized Supervisors or Managers to investigate delivery discrepancies.
 

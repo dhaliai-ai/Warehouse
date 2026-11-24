@@ -107,8 +107,9 @@ The system shall support multiple warehouses belonging to a company.
 - Inventory quantities shall be maintained by warehouse and storage location.
 - Operational transactions shall identify the associated warehouse.
 - Users shall access only warehouses and functions for which they are authorized.
-- Cross-warehouse inventory movements shall be explicitly authorized and recorded.
 - Warehouse-specific transactions shall not unintentionally modify inventory belonging to another warehouse.
+
+Ordinary inter-warehouse inventory transfer as a routine bin-to-bin movement is **not fully specified**. Feature 3 leaves that question unresolved. This README does not approve a transfer workflow.
 
 The initial design focuses on one company operating multiple warehouses. Support for independent tenant companies is an architecture decision requiring further review.
 
@@ -160,7 +161,7 @@ The following technology stack is inherited from the OC Speckit starter kit and 
 |---|---|
 | Frontend | Vue 3, Vuetify 4, Vite, vue-router, axios |
 | Backend | Node.js, Express, Sequelize |
-| Database | MySQL |
+| Database | MySQL (InnoDB, proposed) |
 | Backend Testing | Jest and supertest |
 | Frontend Testing | Vitest and @vue/test-utils |
 | UI Design | Figma |
@@ -212,7 +213,7 @@ Detailed quality targets and verification approaches are maintained in [Nonfunct
 
 ## Architecture Diagrams
 
-The system architecture is represented using the C4 model:
+The system architecture is represented using the C4 model. These diagrams are **proposed design**, not implemented infrastructure. Index, sources, and ADR mapping: [docs/Arch_Diagrams/README.md](docs/Arch_Diagrams/README.md).
 
 - [Level 1 — System Context](docs/Arch_Diagrams/Warehouse-C4-System-Context.png)
 - [Level 2 — Container Diagram](docs/Arch_Diagrams/Warehouse-C4-Container1.drawio.png)
@@ -222,9 +223,7 @@ The system architecture is represented using the C4 model:
 
 User interface designs are maintained in [docs/ui/](docs/ui/).
 
-Relevant UI images are linked from the Screen Requirements sections of individual feature specifications. The designs support desktop and handheld warehouse workflows.
-
-Additional workflow-specific screens will be completed and reviewed as part of the final design.
+Relevant UI images are linked from the Screen Requirements sections of individual feature specifications. The 112 required Screen IDs have design mockups under [docs/ui/](docs/ui/) (desktop) and [docs/ui/Handheld/](docs/ui/Handheld/) (handheld). These are design images, not implemented application screens. Inventory: [docs/ui/README.md](docs/ui/README.md).
 
 ## Branching Strategy
 

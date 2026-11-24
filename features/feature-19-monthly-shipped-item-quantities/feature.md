@@ -1118,7 +1118,13 @@ Allow authorized reporting personnel to review known incomplete Shipment informa
 
 ## Screen Requirements
 
+**Design status:** Mockups for Feature 19 Screen IDs SCREEN-19.1 through SCREEN-19.4. These are design images, not implemented application screens.
+
 ### SCREEN-19.1: Monthly Shipping Report Screen
+
+![Monthly Shipping Report](../../docs/ui/report-monthly-shipping.png)
+
+**Design files:** `docs/ui/report-monthly-shipping.png`
 
 **Purpose:**
 
@@ -1193,6 +1199,10 @@ Allow authorized Managers to generate and review monthly Quantity Shipped totals
 
 ### SCREEN-19.2: Monthly Item Shipment Details Screen
 
+![Monthly Item Shipment Details](../../docs/ui/report-monthly-shipping-details.png)
+
+**Design files:** `docs/ui/report-monthly-shipping-details.png`
+
 **Purpose:**
 
 Allow an authorized Manager to review the individual Shipment Lines contributing to an Item's monthly shipped quantity total.
@@ -1237,6 +1247,10 @@ Allow an authorized Manager to review the individual Shipment Lines contributing
 
 ### SCREEN-19.3: Monthly Shipping Data-Quality View
 
+![Monthly Shipping Data-Quality View](../../docs/ui/report-monthly-shipping-data-quality.png)
+
+**Design files:** `docs/ui/report-monthly-shipping-data-quality.png`
+
 **Purpose:**
 
 Inform authorized Managers when missing or incomplete Shipment information may affect monthly totals.
@@ -1262,6 +1276,22 @@ Inform authorized Managers when missing or incomplete Shipment information may a
 **[NEEDS CLARIFICATION]** Confirm whether data-quality issues should appear in a separate screen or as a section of the Monthly Shipping Report.
 
 ### SCREEN-19.4: Empty Results and Validation Messages
+
+![Monthly Shipping Report — empty](../../docs/ui/report-monthly-shipping-empty.png)
+
+![Monthly Shipping Report — missing month](../../docs/ui/report-monthly-shipping-missing-month.png)
+
+![Monthly Shipping Report — missing year](../../docs/ui/report-monthly-shipping-missing-year.png)
+
+![Monthly Shipping Report — invalid month](../../docs/ui/report-monthly-shipping-invalid-month.png)
+
+![Monthly Shipping Report — invalid year](../../docs/ui/report-monthly-shipping-invalid-year.png)
+
+![Monthly Shipping Report — unauthorized](../../docs/ui/report-monthly-shipping-unauthorized.png)
+
+![Monthly Shipping Report — warehouse denied](../../docs/ui/report-monthly-shipping-warehouse-denied.png)
+
+**Design files:** `docs/ui/report-monthly-shipping-empty.png`, `docs/ui/report-monthly-shipping-missing-month.png`, `docs/ui/report-monthly-shipping-missing-year.png`, `docs/ui/report-monthly-shipping-invalid-month.png`, `docs/ui/report-monthly-shipping-invalid-year.png`, `docs/ui/report-monthly-shipping-unauthorized.png`, `docs/ui/report-monthly-shipping-warehouse-denied.png`
 
 **Purpose:**
 

@@ -547,7 +547,7 @@ Represents an employee authorized to perform Put Away or review blocked assignme
 
 ---
 
-## Gherkin Acceptance Criteria
+## Gherkin AC
 
 ### US-11.1: Select Received Order for Put Away
 
@@ -1554,6 +1554,8 @@ The following endpoints are proposed design contracts and may be refined during 
 
 ## Screen Requirements
 
+**Design status:** Mockups for Feature 11 Screen IDs UI-11A through UI-11J. These are design images, not implemented application screens. Handheld files are under `docs/ui/Handheld/`. UI-11J is desktop.
+
 ### Screen Overview
 
 Feature 11 requires an electronic, scanner-friendly user interface for managing Put Away assignments and confirming the movement of received products into warehouse storage.
@@ -1575,6 +1577,12 @@ The interface MUST support the Warehouse System's no-paper workflow.
 Screen designs and navigation flows will be documented in Figma before implementation.
 
 ### UI-11A: Available Putaway Assignments Screen
+
+![Available Putaway Assignments](../../docs/ui/Handheld/putaway-assignments.png)
+
+![Available Putaway Assignments — empty](../../docs/ui/Handheld/putaway-assignments-empty.png)
+
+**Design files:** `docs/ui/Handheld/putaway-assignments.png`, `docs/ui/Handheld/putaway-assignments-empty.png`
 
 **Purpose:** Display completed receiving work available for Put Away.
 
@@ -1603,6 +1611,10 @@ Screen designs and navigation flows will be documented in Figma before implement
 
 ### UI-11B: Putaway Assignment Details Screen
 
+![Putaway Assignment Details](../../docs/ui/Handheld/putaway-assignment-details.png)
+
+**Design files:** `docs/ui/Handheld/putaway-assignment-details.png`
+
 **Purpose:** Display the details of an accepted assignment.
 
 **Authorized Users:** Assigned Put Away Worker, Supervisor, Manager
@@ -1630,6 +1642,10 @@ Screen designs and navigation flows will be documented in Figma before implement
 - Prevent workers from modifying assignments they are not authorized to perform.
 
 ### UI-11C: Putaway Sequence Screen
+
+![Putaway Sequence](../../docs/ui/Handheld/putaway-sequence.png)
+
+**Design files:** `docs/ui/Handheld/putaway-sequence.png`
 
 **Purpose:** Guide the worker through an efficient sequence of storage locations.
 
@@ -1662,6 +1678,12 @@ Screen designs and navigation flows will be documented in Figma before implement
 
 ### UI-11D: Item UPC Verification Screen
 
+![Item UPC Verification](../../docs/ui/Handheld/putaway-item-verify.png)
+
+![Item UPC Verification — incorrect item](../../docs/ui/Handheld/putaway-item-verify-error.png)
+
+**Design files:** `docs/ui/Handheld/putaway-item-verify.png`, `docs/ui/Handheld/putaway-item-verify-error.png`
+
 **Purpose:** Verify the product before it is placed in storage.
 
 **Authorized Users:** Assigned Put Away Worker, Supervisor, Manager
@@ -1692,6 +1714,12 @@ Screen designs and navigation flows will be documented in Figma before implement
 
 ### UI-11E: Destination Bin Verification Screen
 
+![Destination Bin Verification](../../docs/ui/Handheld/putaway-bin-verify.png)
+
+![Destination Bin Verification — incorrect location](../../docs/ui/Handheld/putaway-bin-verify-error.png)
+
+**Design files:** `docs/ui/Handheld/putaway-bin-verify.png`, `docs/ui/Handheld/putaway-bin-verify-error.png`
+
 **Purpose:** Confirm that the worker is placing products in the assigned storage location.
 
 **Authorized Users:** Assigned Put Away Worker, Supervisor, Manager
@@ -1720,6 +1748,12 @@ Screen designs and navigation flows will be documented in Figma before implement
 - Require new verification when the destination changes.
 
 ### UI-11F: Confirm Putaway Quantity Screen
+
+![Confirm Putaway Quantity](../../docs/ui/Handheld/putaway-quantity.png)
+
+![Confirm Putaway Quantity — confirmation unavailable](../../docs/ui/Handheld/putaway-quantity-unconfirmed.png)
+
+**Design files:** `docs/ui/Handheld/putaway-quantity.png`, `docs/ui/Handheld/putaway-quantity-unconfirmed.png`
 
 **Purpose:** Record the actual quantity placed in a verified destination bin.
 
@@ -1754,6 +1788,10 @@ Screen designs and navigation flows will be documented in Figma before implement
 
 ### UI-11G: Alternative Storage Location Screen
 
+![Alternative Storage Location](../../docs/ui/Handheld/putaway-alternative-location.png)
+
+**Design files:** `docs/ui/Handheld/putaway-alternative-location.png`
+
 **Purpose:** Allow a worker to request a different destination when the assigned bin cannot hold the products.
 
 **Authorized Users:** Assigned Put Away Worker, Supervisor, Manager
@@ -1783,6 +1821,10 @@ Screen designs and navigation flows will be documented in Figma before implement
 
 ### UI-11H: Blocked Putaway Instruction Screen
 
+![Blocked Putaway Instruction](../../docs/ui/Handheld/putaway-blocked.png)
+
+**Design files:** `docs/ui/Handheld/putaway-blocked.png`
+
 **Purpose:** Record work that cannot currently be completed and notify a Supervisor.
 
 **Authorized Users:** Put Away Worker, Supervisor, Manager
@@ -1811,6 +1853,12 @@ Screen designs and navigation flows will be documented in Figma before implement
 - Prevent Inventory updates for unconfirmed placement.
 
 ### UI-11I: Putaway Assignment Completion Screen
+
+![Putaway Assignment Completion](../../docs/ui/Handheld/putaway-completion.png)
+
+![Putaway Assignment Completion — outstanding remaining](../../docs/ui/Handheld/putaway-completion-blocked.png)
+
+**Design files:** `docs/ui/Handheld/putaway-completion.png`, `docs/ui/Handheld/putaway-completion-blocked.png`
 
 **Purpose:** Confirm that all assigned quantities have been successfully placed.
 
@@ -1842,6 +1890,10 @@ Screen designs and navigation flows will be documented in Figma before implement
 - Display a confirmation message after successful completion.
 
 ### UI-11J: Putaway Movement History Screen
+
+![Putaway Movement History](../../docs/ui/putaway-history.png)
+
+**Design files:** `docs/ui/putaway-history.png`
 
 **Purpose:** Allow authorized personnel to review confirmed movements for auditing and reconciliation.
 

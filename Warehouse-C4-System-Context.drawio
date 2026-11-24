@@ -1,68 +1,50 @@
-<mxfile host="app.diagrams.net">
-  <diagram name="Page-1" id="XYcIG-nE3KJV4-YEaBiu">
-    <mxGraphModel dx="1030" dy="1571" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+<mxfile host="app.diagrams.net" modified="2026-11-24T20:00:00.000Z" agent="wms-c4" version="22.1.0" type="device">
+  <diagram name="System Context" id="SystemContext">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1000" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <object placeholders="1" c4Name="Warehouse Management System&#xa;" c4Type="Software System" c4Description="Manages warehouse operations, inventory, orders, shipping, deliveries, and reporting." label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#cccccc&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="3GmhAPhKElpesFxD35w4-4">
-          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#1061B0;fontColor=#ffffff;align=center;arcSize=10;strokeColor=#0D5091;metaEdit=1;resizable=0;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];" vertex="1">
-            <mxGeometry height="120" width="240" x="320" y="170" as="geometry" />
-          </mxCell>
-        </object>
-        <object placeholders="1" c4Name="Warehouse Manager" c4Type="Person" c4Description="Manages warehouse operations, monitors inventory, and reviews reports" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#cccccc&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="3GmhAPhKElpesFxD35w4-5">
-          <mxCell parent="1" style="html=1;fontSize=11;dashed=0;whiteSpace=wrap;fillColor=#083F75;strokeColor=#06315C;fontColor=#ffffff;shape=mxgraph.c4.person2;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0]];resizable=0;" vertex="1">
-            <mxGeometry height="180" width="200" x="40" y="-10" as="geometry" />
-          </mxCell>
-        </object>
-        <object placeholders="1" c4Name="Office Clerk" c4Type="Person" c4Description="Enters customer and supplier orders, maintains records, and reviews order information." label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#cccccc&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="3GmhAPhKElpesFxD35w4-6">
-          <mxCell parent="1" style="html=1;fontSize=11;dashed=0;whiteSpace=wrap;fillColor=#083F75;strokeColor=#06315C;fontColor=#ffffff;shape=mxgraph.c4.person2;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0]];resizable=0;" vertex="1">
-            <mxGeometry height="180" width="200" x="620" y="-10" as="geometry" />
-          </mxCell>
-        </object>
-        <object placeholders="1" c4Name="Warehouse Worker" c4Type="Person" c4Description="Receives shipments, scans items, puts away inventory, and picks customer orders." label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#cccccc&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="3GmhAPhKElpesFxD35w4-7">
-          <mxCell parent="1" style="html=1;fontSize=11;dashed=0;whiteSpace=wrap;fillColor=#083F75;strokeColor=#06315C;fontColor=#ffffff;shape=mxgraph.c4.person2;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0]];resizable=0;" vertex="1">
-            <mxGeometry height="180" width="200" x="20" y="290" as="geometry" />
-          </mxCell>
-        </object>
-        <object placeholders="1" c4Name="Driver" c4Type="Person" c4Description="Views assigned deliveries, records delivery results, and reports delivery discrepancies." label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#cccccc&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="3GmhAPhKElpesFxD35w4-8">
-          <mxCell parent="1" style="html=1;fontSize=11;dashed=0;whiteSpace=wrap;fillColor=#083F75;strokeColor=#06315C;fontColor=#ffffff;shape=mxgraph.c4.person2;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0]];resizable=0;" vertex="1">
-            <mxGeometry height="180" width="200" x="630" y="290" as="geometry" />
-          </mxCell>
-        </object>
-        <mxCell id="3GmhAPhKElpesFxD35w4-14" edge="1" parent="1" source="3GmhAPhKElpesFxD35w4-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="3GmhAPhKElpesFxD35w4-4">
+        <mxCell id="t" value="Warehouse Management System — C4 Level 1: System Context (Proposed design)" style="text;html=1;fontSize=18;fontStyle=1;align=left;fontColor=#0b2e4f;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="n0" value="Internal employees only. No supplier portal, customer portal, payment service, or carrier integration. Not implemented infrastructure." style="text;html=1;fontSize=11;align=left;fontColor=#4b5a6b;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="40" y="50" width="1200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="mgr" value="&lt;b&gt;Managers and administrators&lt;/b&gt;&lt;div&gt;[Person]&lt;/div&gt;&lt;div style="font-size:11px"&gt;Warehouse Manager and Administrator. Maintain company and warehouses, approve exceptions, review reports.&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#08427b;fontColor=#ffffff;strokeColor=#0D5091;align=center;arcSize=8;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="110" width="220" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="off" value="&lt;b&gt;Office personnel&lt;/b&gt;&lt;div&gt;[Person]&lt;/div&gt;&lt;div style="font-size:11px"&gt;Office clerks. Maintain master records, order forms, supplier orders, and customer orders.&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#08427b;fontColor=#ffffff;strokeColor=#0D5091;align=center;arcSize=8;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="980" y="110" width="220" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="wms" value="&lt;b&gt;Warehouse Management System&lt;/b&gt;&lt;div&gt;[Software System]&lt;/div&gt;&lt;div style="font-size:11px"&gt;Paperless operations for one company with multiple warehouses: inventory, receiving, putaway, picking, shipping, delivery, and reporting.&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168bd;fontColor=#ffffff;strokeColor=#0D5091;align=center;arcSize=8;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="500" y="280" width="280" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="wh" value="&lt;b&gt;Warehouse floor personnel&lt;/b&gt;&lt;div&gt;[Person]&lt;/div&gt;&lt;div style="font-size:11px"&gt;Warehouse workers. Receive, put away, pick, and authorized inventory movements. Handheld browser.&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#08427b;fontColor=#ffffff;strokeColor=#0D5091;align=center;arcSize=8;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="500" width="220" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="ship" value="&lt;b&gt;Shipping clerks&lt;/b&gt;&lt;div&gt;[Person]&lt;/div&gt;&lt;div style="font-size:11px"&gt;Verify picked orders and record shipments. Does not deduct stored inventory again after picking.&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#08427b;fontColor=#ffffff;strokeColor=#0D5091;align=center;arcSize=8;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="500" y="500" width="220" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="drv" value="&lt;b&gt;Delivery drivers&lt;/b&gt;&lt;div&gt;[Person]&lt;/div&gt;&lt;div style="font-size:11px"&gt;Assigned deliveries only. Record outcomes and discrepancies. Cannot edit master data.&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#08427b;fontColor=#ffffff;strokeColor=#0D5091;align=center;arcSize=8;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="980" y="500" width="220" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="Administers operations and reviews reports" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;endArrow=block;endFill=1;" edge="1" parent="1" source="mgr" target="wms">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="3GmhAPhKElpesFxD35w4-17" connectable="0" parent="3GmhAPhKElpesFxD35w4-14" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Enters orders and maintains&lt;div&gt;&amp;nbsp;business records&lt;/div&gt;" vertex="1">
-          <mxGeometry relative="1" x="0.0952" y="3" as="geometry">
-            <mxPoint x="15" y="-3" as="offset" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="3GmhAPhKElpesFxD35w4-18" edge="1" parent="1" source="3GmhAPhKElpesFxD35w4-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.25;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" target="3GmhAPhKElpesFxD35w4-4">
+        <mxCell id="e2" value="Enters and maintains business records" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;endArrow=block;endFill=1;" edge="1" parent="1" source="off" target="wms">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="3GmhAPhKElpesFxD35w4-19" connectable="0" parent="3GmhAPhKElpesFxD35w4-18" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Receives, puts away, picks,&lt;div&gt;&amp;nbsp;and moves inventory&lt;/div&gt;" vertex="1">
-          <mxGeometry relative="1" x="-0.096" y="-3" as="geometry">
-            <mxPoint x="-13" y="-3" as="offset" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="3GmhAPhKElpesFxD35w4-20" edge="1" parent="1" source="3GmhAPhKElpesFxD35w4-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.632;entryY=1.007;entryDx=0;entryDy=0;entryPerimeter=0;" target="3GmhAPhKElpesFxD35w4-4">
+        <mxCell id="e3" value="Receives, puts away, picks, moves inventory" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;endArrow=block;endFill=1;" edge="1" parent="1" source="wh" target="wms">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="3GmhAPhKElpesFxD35w4-21" connectable="0" parent="3GmhAPhKElpesFxD35w4-20" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Views assigned&lt;div&gt;&amp;nbsp;deliveries&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); background-color: light-dark(#ffffff, var(--ge-dark-color, #121212));&quot;&gt;&amp;nbsp;and&lt;/span&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); background-color: light-dark(#ffffff, var(--ge-dark-color, #121212));&quot;&gt;&amp;nbsp;records&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); background-color: light-dark(#ffffff, var(--ge-dark-color, #121212));&quot;&gt;delivery results&lt;/span&gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry relative="1" x="0.2608" as="geometry">
-            <mxPoint x="46" as="offset" />
-          </mxGeometry>
+        <mxCell id="e4" value="Ships picked customer orders" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;endArrow=block;endFill=1;" edge="1" parent="1" source="ship" target="wms">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="3GmhAPhKElpesFxD35w4-24" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.225;entryY=-0.02;entryDx=0;entryDy=0;entryPerimeter=0;">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="230" y="80" as="sourcePoint" />
-            <mxPoint x="354" y="169.99999999999991" as="targetPoint" />
-          </mxGeometry>
+        <mxCell id="e5" value="Records assigned delivery results" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;endArrow=block;endFill=1;" edge="1" parent="1" source="drv" target="wms">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="3GmhAPhKElpesFxD35w4-25" connectable="0" parent="3GmhAPhKElpesFxD35w4-24" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Manages warehouse&lt;div&gt;&amp;nbsp;operations&lt;div&gt;&amp;nbsp;and reviews reports&lt;/div&gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry relative="1" x="-0.1176" y="3" as="geometry">
-            <mxPoint as="offset" />
-          </mxGeometry>
+        <mxCell id="leg" value="C4 Person and Software System. Proposed. ADR-0001, ADR-0004, ADR-0006. No external software systems are documented." style="text;html=1;fontSize=11;align=left;fontColor=#4b5a6b;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="40" y="720" width="1200" height="50" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

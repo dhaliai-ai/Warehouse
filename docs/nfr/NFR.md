@@ -162,6 +162,8 @@ Nonfunctional requirements shall be verified through appropriate testing and rev
 
 ## 18. Related Architecture Diagrams
 
-- `docs/Arch_Diagrams/Warehouse-C4-System-Context.png`
-- `docs/Arch_Diagrams/Warehouse-C4-Container1.drawio.png`
-- `docs/Arch_Diagrams/Warehouse-C4-Component.drawio.png`
+These diagrams are proposed design, not implemented infrastructure. See [docs/Arch_Diagrams/README.md](../Arch_Diagrams/README.md).
+
+- [Level 1 — System Context](../Arch_Diagrams/Warehouse-C4-System-Context.png)
+- [Level 2 — Container Diagram](../Arch_Diagrams/Warehouse-C4-Container1.drawio.png)
+- [Level 3 — Component Diagram](../Arch_Diagrams/Warehouse-C4-Component.drawio.png)
